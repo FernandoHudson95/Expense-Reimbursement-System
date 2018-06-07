@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+  
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -16,7 +17,7 @@
   </head>
 
   <body class="text-center">
-    <form class="form-signin">
+    <form class="form-signin" onsubmit="event.preventDefault(); login();">
       <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
       <h1 class="h1 mb-3 font-weight-normal">Reimburesement Requests</h1>
       <br>
@@ -26,14 +27,22 @@
       <input type="password" id="inputPassword" class="form-control" placeholder="Password" required autofocus> <!--required-->
       
       <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      <br>
+
+
+      <p> Don't have an accout?
+        <a class="newUser" href="../add-user/add-user.html">Create new account</a>
+      </p>
+
     </form>
 
-      <a href="../add-user/index.html"><button class="btn btn-lg btn-primary btn-block">Create new account</button></a>
+  
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
-   
+     <script src="sign-in.js"></script>
+
 
   </body>
 </html>

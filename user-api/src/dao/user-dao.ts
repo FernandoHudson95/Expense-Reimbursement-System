@@ -27,6 +27,19 @@ export function getUsers(users: string): Promise<any> {
   }).promise();
 }
 
+export function checkUser(username: string): Promise<any> {
+  return docClient.query({
+    TableName: 'Users',
+    KeyConditionExpression: '#un = :username',
+    ExpressionAttributeValues: {
+      ':username': username
+    },
+    ExpressionAttributeNames: {
+      '#un': 'username'
+    }
+  }).promise();
+}
+
 // export function findAllByYear(year: number): Promise<any> {
 //   return docClient.query({
 //     TableName: 'movies',

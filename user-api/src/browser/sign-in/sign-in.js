@@ -1,4 +1,3 @@
-
 function login() {
   const username = document.getElementById('inputUsername').value;
   const password = document.getElementById('inputPassword').value;
@@ -24,7 +23,7 @@ function login() {
     throw 'Unable to login at this time, please try again later';
   })
   .then(data => {
-    window.location = '../movies-table/index.html';
+    window.location = '../add-request/request.html';
   })
   .catch(err => {
     document.getElementById('error-message').innerText = err;

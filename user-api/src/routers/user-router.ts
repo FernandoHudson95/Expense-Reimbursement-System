@@ -18,6 +18,7 @@ userRouter.post('', [
         role: req.body.role,
         username: req.body.username
     }
+    console.log('made it into the router');
 
     userService.save(user)
       .then(data => {
@@ -32,6 +33,8 @@ userRouter.post('', [
   userRouter.post('/login', (req, resp, next) => {
     const user = req.body && req.body;
   
+    userService.checkUser(req.params)
+
     // should probably send a call to the db to get the actual user object to determine role
     if (req.body.username === 'admin' && req.body.password === 'admin') {
       req.session.role = 'admin';
@@ -49,6 +52,34 @@ userRouter.post('', [
       resp.sendStatus(401);
     }
   });
+
+  userRouter.get('/login', (req, resp) => {
+    // console.log(req.params.status);
+    userService.checkUser(req.params)
+      .then(data => {
+        resp.json(data.Items);
+        if (req.body.username === 'admin' && req.body.password === 'admin') {
+          req.session.role = 'admin';
+          resp.json({
+            username: 'admin',
+            role: 'admin'
+          });
+        } else if (req.body.username === 'blake' && req.body.password === 'pass') {
+          req.session.role = 'employee';
+          resp.json({
+            username: 'blake',
+            role: 'employee'
+          });
+        } else {
+          resp.sendStatus(401);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        resp.sendStatus(500);
+      });
+  });
+
 
 //POSSIBLY WILL ADD FUNCTIONALITY TO DELETE USER ACCOUNT BELOW (USE NETNINJA VIDEO #11)
 

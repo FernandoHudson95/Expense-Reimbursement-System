@@ -1,5 +1,6 @@
 import express from 'express';
 import {Request, Response, NextFunction} from 'express';
+import path from 'path';
 import{ userRouter} from './routers/user-router';
 import session from 'express-session';
 import bodyParser from 'body-parser';
@@ -21,16 +22,16 @@ const sess = {
 app.use(session(sess));
 
 // allow static content to be served, navigating to url with nothing after / will serve index.html from public
-// app.use(
-//     express.static(path.join(__dirname, 'static'))
-//   );
+app.use(
+    express.static(path.join(__dirname, 'browser'))
+  );
 
-  // allow cross origins
-app.use((req, resp, next) => {
-    resp.header("Access-Control-Allow-Origin", "*");
-    resp.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-  })
+//   // allow cross origins
+// app.use((req, resp, next) => {
+//     resp.header("Access-Control-Allow-Origin", "*");
+//     resp.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//     next();
+//   })
   
 
 /**
