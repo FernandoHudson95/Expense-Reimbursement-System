@@ -1,5 +1,5 @@
 import aws from 'aws-sdk';
-import {ConfigurationOptions} from 'aws-sdk/lib/config';
+import { ConfigurationOptions } from 'aws-sdk/lib/config';
 const awsConfig: ConfigurationOptions = {
   region: 'us-east-2',
   accessKeyId: process.env.AWS_ACCESS_KEY,
@@ -18,25 +18,24 @@ export function saveUser(user): Promise<any> {
   }).promise();
 }
 
-export function getUsers(users: string): Promise<any> {
-  return docClient.query({
-    TableName: 'Users',
-    ExpressionAttributeNames: {
-      '#fn': 'firstname'
-    }
-  }).promise();
-}
+// export function getUsers(users: string): Promise<any> {
+//   return docClient.query({
+//     TableName: 'Users',
+//     ExpressionAttributeNames: {
+//       '#fn': 'firstname'
+//     }
+//   }).promise();
+// }
 
-export function checkUser(username: string): Promise<any> {
+export function checkUser(username, password): Promise<any> {
+  console.log('made it to the dao');
   return docClient.query({
     TableName: 'Users',
-    KeyConditionExpression: '#un = :username',
+    IndexName: 'password-index',
+    KeyConditionExpression: 'password = :password',
     ExpressionAttributeValues: {
-      ':username': username
+      ':password': password
     },
-    ExpressionAttributeNames: {
-      '#un': 'username'
-    }
   }).promise();
 }
 
@@ -51,7 +50,7 @@ export function checkUser(username: string): Promise<any> {
 //       ':yyyy': year
 //     },
 //     // ReturnConsumedCapacity: 'TOTAL' // not needed but if you want to see this info it is there
-    
+
 //   }).promise();
 // }
 

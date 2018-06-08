@@ -4,8 +4,10 @@ export function save(user) {
     return userDao.saveUser(user);
 }
 
-export function checkUser(username){
-    return userDao.checkUser(username);
+export function checkUser(username, password) {
+    console.log('made it to the service');
+
+    return userDao.checkUser(username, password);
 }
 
 // export function getUsers(users) {
