@@ -49,3 +49,14 @@ function addMovie(movie) {
     // `;
 
 }
+
+function logOut() {
+    fetch('http://localhost:3000/users/logout/')
+    .then((data) => {
+        alert('Now logging out!')
+        window.location= '../sign-in/sign-in.html';
+      })
+        .catch(err => {
+            console.log(err);
+    });
+}

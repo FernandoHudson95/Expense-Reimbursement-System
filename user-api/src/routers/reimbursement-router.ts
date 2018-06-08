@@ -48,7 +48,7 @@ export const reimbursementRouter = express.Router();
 //        });
 //   }]);
 
-  reimbursementRouter.post('', [          //POST STATEMENT THAT GIVES A NUMBER OF EPOCH TIME FOR TIMESUBMITTED
+  reimbursementRouter.post('/new', [          //POST STATEMENT THAT GIVES A NUMBER OF EPOCH TIME FOR TIMESUBMITTED
   (req, resp) => {                        //USE THIS FOR REIMBURSEMENTS TABLE WHERE TIMESUBMITTED IS A NUMBER
 
     const t = new Date();
@@ -56,12 +56,13 @@ export const reimbursementRouter = express.Router();
 
     const reimbursement = {
         timeSubmitted: timeSubmitted,
-        username: req.body.username,
+        username: req.session.username,
         type: req.body.type,
         items: req.body.items,
-        receipts: req.body.receipts,
-        status: req.body.status,
-        approver: req.body.approver
+        amount: req.body.amount,
+        // receipts: req.body.receipts,
+        status: "Pending",
+        approver: "Pending"
 
     }
     reimbursementService.save(reimbursement)

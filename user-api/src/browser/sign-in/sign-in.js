@@ -14,11 +14,6 @@ function login() {
   })
     .then(resp => {
       console.log(resp.status)
-      if (resp.status === 401) {
-
-        document.getElementById('invalid-credentials').innerHTML = "Invalid Username/Password!";
-        throw 'Invalid Credentials';
-      }
       if (resp.status === 200) {
         console.log('Valid Credentials')
         return resp.json();
@@ -26,10 +21,11 @@ function login() {
       throw 'Unable to login at this time, please try again later';
     })
     .then(data => {
-      window.location = '../add-request/request.html';
+      window.location = '../main-request/request.html';
     })
     .catch(err => {
       console.log(err);
+      document.getElementById('invalid-credentials').innerHTML = "Invalid Username/Password!";
     })
 
 }

@@ -27,14 +27,13 @@ export function saveUser(user): Promise<any> {
 //   }).promise();
 // }
 
-export function checkUser(username, password): Promise<any> {
+export function checkUser(username): Promise<any> {
   console.log('made it to the dao');
   return docClient.query({
     TableName: 'Users',
-    IndexName: 'password-index',
-    KeyConditionExpression: 'password = :password',
+    KeyConditionExpression: 'username = :username',
     ExpressionAttributeValues: {
-      ':password': password
+      ':username': username
     },
   }).promise();
 }

@@ -33,20 +33,36 @@ userRouter.post('', [
 userRouter.post('/login', (req, resp) => {
   console.log('Made it to the router')
 
-  userService.checkUser(req.body.username, req.body.password)
+  userService.checkUser(req.body.username)
     .then(data => {
       console.log(data)
-      if(data.Count === 1){
+      if(req.body.password === data.Items[0].password) {
+        console.log('Logged in.');
+        req.session.username = req.body.username;
+        req.session.role = req.body.role;
         resp.json(data.Items);
-      }
-      else{
-        resp.sendStatus(401);
+      } else {
+        console.log('something was inputted wrong');
+        resp.sendStatus(418);
       }
     })
     .catch(err => {
       console.log(err);
       resp.sendStatus(500);
     });
+});
+
+userRouter.get('/logout', (req, res, next) => {
+  if (req.session) {
+    // delete session object
+    req.session.destroy((err) => {
+      if(err) {
+        return next(err);
+      } else {
+        return res.redirect('/sign-in/sign-in.html');
+      }
+    });
+  }
 });
 
 //MIGHT ADD THIS CODE INTO ABOVE CODE TO CHECK AND ADD SESSIONS

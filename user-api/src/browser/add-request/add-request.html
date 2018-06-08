@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="../../../../favicon.ico">
+
+  <title>Navbar Template for Bootstrap</title>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+    crossorigin="anonymous">
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+    crossorigin="anonymous"></script>
+
+  <!-- Custom styles for this template -->
+  <link href="navbar.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand" href="">New Reimbursement Request</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+
+    <div class="collapse navbar-collapse" id="navbarsExample04">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="../main-request/request.html">Back to My Requests
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+
+      </ul>
+      <form class="form-inline my-2 my-md-0">
+        <input class="form-control" type="text" placeholder="Search">
+      </form>
+    </div>
+  </nav>
+
+  <form class="container" onsubmit="event.preventDefault(); submitRequest();">
+    <br>
+    <br>
+    <table class="table table-bordered table-dark">
+      <thead>
+        <tr>
+          <th scope="col" width="25%">Type</th>
+          <th scope="col" width="25%">Amount</th>
+          <th scope="col">Items</th>
+        </tr>
+      </thead>
+      <tbody id="request">
+        <tr>
+          <td>
+            <select id="types-dropdown" class="form-control col-md-9" id="request-type">
+              <option value="Lodging">Lodging</option>
+              <option value="Travel">Travel</option>
+              <option value="Food">Food</option>
+              <option value="Other">Other</option>
+            </select>
+          </td>
+          <td>
+            <input type="number" class="form-control col-md-8" id="request-amount" placeholder="$$$$" required>
+          </td>
+          <td>
+            <input type="text" class="form-control" id="reimbursement-description" placeholder="Description" required>
+          </td>
+        </tr>
+        </tr>
+      </tbody>
+    </table>
+  
+    <br>
+    <p id="warning"></p>
+      <button class="btn btn-danger" onclick="newRequest()" display="form-inline">New Item</button>
+      <button class="btn btn-danger" onclick="deleteRequest()">Delete Item</button>
+      <br>
+      <br>  
+      <button class="btn btn-primary" >Submit Request</button>
+  </form>
+
+  <script src="add-request.js"></script>
+
+</body>
+
+</html>
+
+
+<!-- POSSIBLY USE THIS CODE FOR A NEW WAY TO ADD IN A REIMBURSEMNT REQUEST -->
+
+ <!-- <div class="request">
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <br>
+        <label for="request-title">Reimbursement Title</label>
+        <input type="text" class="form-control" id="request-title" placeholder="Title" required>
+      </div>
+      
+      <div class="form-group col-md-4">
+        <br>
+        <label for="request-amount">Request Amount</label>
+        <input type="text" class="form-control" id="request-amount" placeholder="$$$$" required>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-8">
+        <label for="reimbursement-description">Reimbursement Description</label>
+        <input type="text" class="form-control" id="reimbursement-description" placeholder="Description" required>
+      </div>
+    </div>
+    Reimbursement Type:
+    <br>
+    <select class="col-md-4" id="request-type">
+      <option value="Lodging">Lodging</option>
+      <option value="Travel">Travel</option>
+      <option value="Food">Food</option>
+      <option value="Other">Other</option>
+    </select>
+  </div> -->

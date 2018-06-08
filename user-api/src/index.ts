@@ -14,7 +14,7 @@ app.set('port', port);
 const sess = {
     secret: 'keyboard cat',
     cookie: { secure: false },
-    resave: false,
+    resave: true,
     saveUninitialized: false
   };
 
