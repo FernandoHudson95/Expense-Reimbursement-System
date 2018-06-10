@@ -52,8 +52,10 @@ function addMovie(movie) {
 
 function displayRequests() {
     console.log(sessionStorage.getItem('username'))
-    let username = sessionStorage.getItem('username')
+    let firstname = sessionStorage.getItem('firstname')
     // alert("Welcome to your requests " + username)
+    document.getElementById("user").innerHTML = firstname + "'s reimbursements";
+    let username = sessionStorage.getItem('username')
 
 
 fetch('http://localhost:3000/reimbursements/username/' + username)

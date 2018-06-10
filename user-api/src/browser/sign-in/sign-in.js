@@ -22,7 +22,10 @@ function login() {
     })
     .then(data => {
       // alert(data[0].username)
+      // console.log(data[0])
       sessionStorage.setItem('username', data[0].username)
+      sessionStorage.setItem('firstname', data[0].firstname)
+      console.log(sessionStorage)
       alert("Welcome " + data[0].firstname)
       window.location = '../main-request/request.html';
     })
