@@ -26,8 +26,16 @@ function login() {
       sessionStorage.setItem('username', data[0].username)
       sessionStorage.setItem('firstname', data[0].firstname)
       console.log(sessionStorage)
-      alert("Welcome " + data[0].firstname)
+      // alert("Welcome " + data[0].firstname)
+      if(data[0].role === "Admin"){
+        window.location = '../admin-request/admin.html';
+      }
+      else if(data[0].role === "Employee"){
       window.location = '../main-request/request.html';
+      }
+      else{
+        document.getElementById('invalid-credentials').innerHTML = "Employee role is not found!";
+      }
     })
     .catch(err => {
       console.log(err);

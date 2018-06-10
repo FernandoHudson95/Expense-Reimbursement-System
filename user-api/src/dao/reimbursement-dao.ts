@@ -68,6 +68,22 @@ export function reimbursementsByUsername(username): Promise<any> {
     }).promise();
 }
 
+export function allReimbursements(username): Promise<any> {
+  // console.log('Remibursement Dao'); 
+    return docClient.get({
+        TableName: 'Reimbursements2',
+        Key: username
+    //     // IndexName: 'status-index',
+    //     KeyConditionExpression: "#un = :username",
+    // ExpressionAttributeNames:{
+    //     "#un": "username"
+    // },
+    // ExpressionAttributeValues: {
+    //     ":username":username
+    // }
+    }).promise();
+}
+
 // export function allReimbursementsByTime(timeSubmitted): Promise<any> {
 //   // console.log('Remibursement Dao'); 
 //     return docClient.query({

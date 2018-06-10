@@ -14,6 +14,10 @@ export function statusUpdate(timeSubmitted) {
 //     return reimbusementDao.allReimbursementsByTime(timeSubmitted);
 // }
 
+export function allReimbursements(username) {
+    // console.log('Reimbursement service');
+    return reimbusementDao.allReimbursements(username);
+}
 
 export function reimbursementsByStatus(status) {
     // console.log('Reimbursement service');

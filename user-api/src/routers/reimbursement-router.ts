@@ -104,7 +104,20 @@ reimbursementRouter.get('/username/:username', (req, resp, next) => {
   // console.log(req.params.username);
   reimbursementService.reimbursementsByUsername(req.params.username)
     .then(data => {
-      console.log(`Retrieving reimbursements for employee ${req.params.username}`);
+      // console.log(`Retrieving reimbursements for employee ${req.params.username}`);
+      resp.json(data.Items);
+    })
+    .catch(err => {
+      console.log(err);
+      resp.sendStatus(500);
+    });
+});
+
+reimbursementRouter.get('', (req, resp, next) => {
+  // console.log(req.params.username);
+  reimbursementService.allReimbursements(req.params.username)
+    .then(data => {
+      console.log(`Retrieving all reimbursements for employee ${req.params.username}`);
       resp.json(data.Items);
     })
     .catch(err => {
