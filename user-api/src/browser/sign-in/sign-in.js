@@ -13,7 +13,7 @@ function login() {
     method: 'POST'
   })
     .then(resp => {
-      console.log(resp.status)
+      // console.log(resp.status)
       if (resp.status === 200) {
         console.log('Valid Credentials')
         return resp.json();
@@ -21,6 +21,9 @@ function login() {
       throw 'Unable to login at this time, please try again later';
     })
     .then(data => {
+      // alert(data[0].username)
+      sessionStorage.setItem('username', data[0].username)
+      alert("Welcome " + data[0].firstname)
       window.location = '../main-request/request.html';
     })
     .catch(err => {

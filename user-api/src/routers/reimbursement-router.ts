@@ -51,20 +51,38 @@ export const reimbursementRouter = express.Router();
   reimbursementRouter.post('/new', [          //POST STATEMENT THAT GIVES A NUMBER OF EPOCH TIME FOR TIMESUBMITTED
   (req, resp) => {                        //USE THIS FOR REIMBURSEMENTS TABLE WHERE TIMESUBMITTED IS A NUMBER
 
-    const t = new Date();
-    const timeSubmitted = t.toDateString();
+    // console.log(req.body[0].title)  //THIS NEEDS [0] BECAUSE IT GETS INSIDE OF THE BODY ARRAY AND GETS WHATEVER AFTER IS CALLED
+    // consoley.log(req.sessionStore.sessions)
+    // console.log(req.sessionStore.sessions.cookie)
+    // let usernametest = sessionStorage.getItem('username')
+    // console.log(sessionStorage)
+    
+    let timeSubmitted= Date.now();
+    let username = req.body[0].username;
+    let type = req.body[0].title;
+    let items = req.body[0].item
+    let amount = req.body[0].amount;
+    let status = 'Pending';
+    let approver = 'Pending'
+    
 
-    const reimbursement = {
-        timeSubmitted: timeSubmitted,
-        username: req.session.username,
-        type: req.body.type,
-        items: req.body.items,
-        amount: req.body.amount,
-        // receipts: req.body.receipts,
-        status: "Pending",
-        approver: "Pending"
+    let reimbursement = {timeSubmitted, username, type, items, amount, status, approver}
 
-    }
+    // const timeSubmitted = t.toDateString();
+    // console.log(req.session.username);
+    // console.log(req.session.role);
+    // let name = req.session.username
+    // const reimbursement = {
+    //     timeSubmitted: Date.now(),
+    //     username: "Guy",
+    //     type: req.body.title,
+    //     items: req.body.items,
+    //     amount: req.body.amount,
+    //     // receipts: req.body.receipts,
+    //     status: "Pending",
+    //     approver: "Pending"
+
+    // }
     reimbursementService.save(reimbursement)
       .then(data => {
         resp.json(data);
@@ -99,7 +117,7 @@ reimbursementRouter.get('/status/:status', (req, resp) => {
     });
 });
 
-reimbursementRouter.get('/username/:username', (req, resp) => {
+reimbursementRouter.get('/username/:username', (req, resp, next) => {
   // console.log(req.params.username);
   reimbursementService.reimbursementsByUsername(req.params.username)
     .then(data => {

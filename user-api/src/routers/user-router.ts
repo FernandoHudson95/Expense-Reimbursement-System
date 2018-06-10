@@ -35,14 +35,17 @@ userRouter.post('/login', (req, resp) => {
 
   userService.checkUser(req.body.username)
     .then(data => {
-      console.log(data)
+      // console.log(data)  //THIS IS WHERE I CAN SEE THE ITEMS BEING SENT BACK. CHECKS USERNAME AND PASS
       if(req.body.password === data.Items[0].password) {
-        console.log('Logged in.');
-        req.session.username = req.body.username;
-        req.session.role = req.body.role;
+        console.log('Logged in.'); 
+        req.session.username = data.Items[0].username;
+        req.session.role = data.Items[0].role;
+        //console.log(req.session.username)  //THIS SHOWS THE USERNAME THAT IS SAVED IN THE SESSION
+        //console.log(req.session.role)   //THIS SHOWS THE USERS ROLE SAVED IN THE SESSION
+        //console.log(data.Items)
         resp.json(data.Items);
       } else {
-        console.log('something was inputted wrong');
+        console.log('something was entered wrong');
         resp.sendStatus(418);
       }
     })

@@ -5,21 +5,15 @@ import{ userRouter} from './routers/user-router';
 import session from 'express-session';
 import bodyParser from 'body-parser';
 import { reimbursementRouter } from './routers/reimbursement-router';
+import { DynamoDB } from 'aws-sdk';
+
+// const login = require('./browser/sign-in/sign-in')
 
 const app = express();
 
 const port = 3000;
 app.set('port', port);
 
-const sess = {
-    secret: 'keyboard cat',
-    cookie: { secure: false },
-    resave: true,
-    saveUninitialized: false
-  };
-
-  // set up express to attach sessions
-app.use(session(sess));
 
 // allow static content to be served, navigating to url with nothing after / will serve index.html from public
 app.use(
@@ -64,9 +58,20 @@ next();
 //REGISTER THE BODY PARSER TO CONVERT REQUEST JSON TO AN ACTUAL OBJECT
 app.use(bodyParser.json());
 
+const sess = {
+  secret: 'keyboard cat',
+  cookie: { secure: false },
+  resave: true,
+  saveUninitialized: false
+};
+
+// set up express to attach sessions
+app.use(session(sess));
+
 /**************************************************************
  * Register Routers
  **************************************************************/
+// app.use('/', login)
 app.use('/users', userRouter); //USED TO REGISTER A NEW USER LOG IN ACCOUNT
 
 app.use('/reimbursements', reimbursementRouter); //USED TO ADD A NEW REIMBURSEMENT REQUEST AND ACCES REIMBURSEMENT REQUESTS

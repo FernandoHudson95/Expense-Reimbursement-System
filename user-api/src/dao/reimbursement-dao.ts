@@ -13,7 +13,7 @@ const docClient = new aws.DynamoDB.DocumentClient(); // subset of functionality 
 
 export function saveReimbursement(reimbursement): Promise<any> {
   return docClient.put({
-    TableName: 'Reimbursements2',
+    TableName: 'Reimbursements',
     Item: reimbursement
   }).promise();
 }
