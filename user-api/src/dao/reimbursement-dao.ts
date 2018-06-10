@@ -13,7 +13,7 @@ const docClient = new aws.DynamoDB.DocumentClient(); // subset of functionality 
 
 export function saveReimbursement(reimbursement): Promise<any> {
   return docClient.put({
-    TableName: 'Reimbursements',
+    TableName: 'Reimbursements2',
     Item: reimbursement
   }).promise();
 }
@@ -56,7 +56,7 @@ export function reimbursementsByStatus(status): Promise<any> {
 export function reimbursementsByUsername(username): Promise<any> {
   // console.log('Remibursement Dao'); 
     return docClient.query({
-        TableName: 'Reimbursements',
+        TableName: 'Reimbursements2',
         // IndexName: 'status-index',
         KeyConditionExpression: "#un = :username",
     ExpressionAttributeNames:{

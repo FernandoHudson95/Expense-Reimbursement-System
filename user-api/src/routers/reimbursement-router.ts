@@ -5,94 +5,77 @@ import * as reimbursementService from '../services/reimbursement-service';
 
 export const reimbursementRouter = express.Router();
 
-//  reimbursementRouter.post('', [ //POST STATEMENT THAT GIVE A STRING OF DAY AND TIME FOR TIMESUBMITTED
-//    (req, resp) => {             //USE THIS FOR REIMBURSEMENTS 2 TABLE WHERE TIMESUBMITTED IS A STRING
+ reimbursementRouter.post('/new', [ //POST STATEMENT THAT GIVES A STRING OF DAY AND TIME FOR TIMESUBMITTED
+   (req, resp) => {             //USE THIS FOR REIMBURSEMENTS 2 TABLE WHERE TIMESUBMITTED IS A STRING
 
-//      function addZero(i) {
-//        if (i < 10) {
-//            i = "0" + i;
-//        }
-//        return i;
-//    }
-  
-//    function myFunction() {
-//        let d = new Date();
-//        var h = addZero(d.getHours());
-//        var m = addZero(d.getMinutes());
-//        var s = addZero(d.getSeconds());
-//        let time = h + ":" + m + ":" + s;
-//        let t = new Date();
-//        let day = t.toDateString();
-//        const timeSubmitted = day + " at " + time;
-//        return timeSubmitted ;
-//    }
+     function addZero(i) {
+       if (i < 10) {
+           i = "0" + i;
+       }
+       return i;
+   }
 
-//      const reimbursement = {
-//          timeSubmitted: myFunction(),
-//          username: req.body.username,
-//          type: req.body.type,
-//          items: req.body.items,
-//          receipts: req.body.receipts,
-//          status: req.body.status,
-//          approver: req.body.approver
+   function myFunction() {
+       let d = new Date();
+       var h = addZero(d.getHours());
+       var m = addZero(d.getMinutes());
+       var s = addZero(d.getSeconds());
+       let time = h + ":" + m + ":" + s;
+       let t = new Date();
+       let day = t.toDateString();
+       const timeSubmitted = day + " at " + time;
+       return timeSubmitted ;
+   }
 
-//      }
-//      reimbursementService.save(reimbursement)
-//        .then(data => {
-//          resp.json(data);
-//        })
-//        .catch(err => {
-//          console.log(err);
-//          resp.sendStatus(500);
-//          resp.send({ error: err.message })
-//        });
-//   }]);
-
-  reimbursementRouter.post('/new', [          //POST STATEMENT THAT GIVES A NUMBER OF EPOCH TIME FOR TIMESUBMITTED
-  (req, resp) => {                        //USE THIS FOR REIMBURSEMENTS TABLE WHERE TIMESUBMITTED IS A NUMBER
-
-    // console.log(req.body[0].title)  //THIS NEEDS [0] BECAUSE IT GETS INSIDE OF THE BODY ARRAY AND GETS WHATEVER AFTER IS CALLED
-    // consoley.log(req.sessionStore.sessions)
-    // console.log(req.sessionStore.sessions.cookie)
-    // let usernametest = sessionStorage.getItem('username')
-    // console.log(sessionStorage)
-    
-    let timeSubmitted= Date.now();
+    let timeSubmitted= myFunction();
     let username = req.body[0].username;
     let type = req.body[0].title;
     let items = req.body[0].item
     let amount = req.body[0].amount;
     let status = 'Pending';
     let approver = 'Pending'
-    
 
     let reimbursement = {timeSubmitted, username, type, items, amount, status, approver}
-
-    // const timeSubmitted = t.toDateString();
-    // console.log(req.session.username);
-    // console.log(req.session.role);
-    // let name = req.session.username
-    // const reimbursement = {
-    //     timeSubmitted: Date.now(),
-    //     username: "Guy",
-    //     type: req.body.title,
-    //     items: req.body.items,
-    //     amount: req.body.amount,
-    //     // receipts: req.body.receipts,
-    //     status: "Pending",
-    //     approver: "Pending"
-
-    // }
-    reimbursementService.save(reimbursement)
-      .then(data => {
-        resp.json(data);
-      })
-      .catch(err => {
-        console.log(err);
-        resp.sendStatus(500);
-        resp.send({ error: err.message })
-      });
+     reimbursementService.save(reimbursement)
+       .then(data => {
+         resp.json(data);
+       })
+       .catch(err => {
+         console.log(err);
+         resp.sendStatus(500);
+         resp.send({ error: err.message })
+       });
   }]);
+
+  // reimbursementRouter.post('/new', [          //POST STATEMENT THAT GIVES A NUMBER OF EPOCH TIME FOR TIMESUBMITTED
+  // (req, resp) => {                        //USE THIS FOR REIMBURSEMENTS TABLE WHERE TIMESUBMITTED IS A NUMBER
+
+  //   // console.log(req.body[0].title)  //THIS NEEDS [0] BECAUSE IT GETS INSIDE OF THE BODY ARRAY AND GETS WHATEVER AFTER IS CALLED
+  //   // consoley.log(req.sessionStore.sessions)
+  //   // console.log(req.sessionStore.sessions.cookie)
+  //   // let usernametest = sessionStorage.getItem('username')
+  //   // console.log(sessionStorage)
+    
+  //   let timeSubmitted= Date.now();
+  //   let username = req.body[0].username;
+  //   let type = req.body[0].title;
+  //   let items = req.body[0].item
+  //   let amount = req.body[0].amount;
+  //   let status = 'Pending';
+  //   let approver = 'Pending'
+
+  //   let reimbursement = {timeSubmitted, username, type, items, amount, status, approver}
+
+  //   reimbursementService.save(reimbursement)
+  //     .then(data => {
+  //       resp.json(data);
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //       resp.sendStatus(500);
+  //       resp.send({ error: err.message })
+  //     });
+  // }]);
 
 reimbursementRouter.put('', (req, resp) => {
   reimbursementService.statusUpdate(req.body)

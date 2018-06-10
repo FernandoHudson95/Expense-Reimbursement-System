@@ -49,7 +49,7 @@
     </div>
   </nav>
 
-  <form class="container" onsubmit="event.preventDefault(); submitRequest();">
+  <form class="container" id="container" onsubmit="event.preventDefault(); submitRequest();">
     <br>
     <br>
     <table class="table table-bordered table-dark">
@@ -82,12 +82,15 @@
     </table>
   
     <br>
+    <div id="lblValues"></div>
     <p id="warning"></p>
       <button class="btn btn-danger" onclick="newRequest()" display="form-inline">New Item</button>
       <button class="btn btn-danger" onclick="deleteRequest()">Delete Item</button>
+      <button class="btn btn-danger" onclick="grabElements()">Practice</button>
+
       <br>
       <br>  
-      <button class="btn btn-primary" >Submit Request</button>
+      <button class="btn btn-primary">Submit Request</button>
   </form>
 
   <script src="add-request.js"></script>
