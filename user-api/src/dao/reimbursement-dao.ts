@@ -18,22 +18,23 @@ export function saveReimbursement(reimbursement): Promise<any> {
   }).promise();
 }
 
-export function statusUpdate(timeSubmitted): Promise<any> {
+export function statusUpdate(status): Promise<any> {
     // console.log('Remibursement Dao');
     return docClient.update({
         TableName: 'Reimbursements2',
         Key: {
-            timeSubmitted: timeSubmitted.timeSubmitted,
-            username: timeSubmitted.username
+            username: status.username,
+          timeSubmitted: status.timeSubmitted
           },
-            UpdateExpression: 'set #stat = :s',
-            ConditionExpression: 'attribute_exists(timeSubmitted)',
+            UpdateExpression: 'set #status = :s, approver = :approver',
+            // ConditionExpression: 'attribute_exists(timeSubmitted)',
 
             ExpressionAttributeNames: {
-            '#stat': 'status'
+            '#status': 'status'
             },
             ExpressionAttributeValues: {
-            ':s': timeSubmitted.status
+            ':s': status.status,
+            ':approver': status.approver
             }
     }).promise();
 }

@@ -79,19 +79,8 @@ export const reimbursementRouter = express.Router();
   //     });
   // }]);
 
-reimbursementRouter.put('/Approved', (req, resp) => {
-  console.log(req)
-  reimbursementService.statusUpdate(req.body)
-    .then(data => {
-      resp.json(data);
-    })
-    .catch(err => {
-      console.log(err);
-      resp.sendStatus(500);
-    });
-});
-
-reimbursementRouter.put('/Denied', (req, resp) => {
+reimbursementRouter.post('/update', (req, resp) => {
+  console.log(req.body)
   reimbursementService.statusUpdate(req.body)
     .then(data => {
       resp.json(data);

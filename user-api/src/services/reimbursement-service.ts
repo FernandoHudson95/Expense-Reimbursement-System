@@ -4,9 +4,9 @@ export function save(reimbursement) {
     return reimbusementDao.saveReimbursement(reimbursement);
 }
 
-export function statusUpdate(timeSubmitted) {
+export function statusUpdate(status) {
     // console.log('Remibursement service');
-    return reimbusementDao.statusUpdate(timeSubmitted);
+    return reimbusementDao.statusUpdate(status);
 }
 
 // export function allReimbursementsByTime(timeSubmitted) {
