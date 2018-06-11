@@ -1,5 +1,5 @@
 import aws from 'aws-sdk';
-import {ConfigurationOptions} from 'aws-sdk/lib/config';
+import { ConfigurationOptions } from 'aws-sdk/lib/config';
 const awsConfig: ConfigurationOptions = {
   region: 'us-east-2',
   accessKeyId: process.env.AWS_ACCESS_KEY,
@@ -19,54 +19,54 @@ export function saveReimbursement(reimbursement): Promise<any> {
 }
 
 export function statusUpdate(status): Promise<any> {
-    // console.log('Remibursement Dao');
-    return docClient.update({
-        TableName: 'Reimbursements2',
-        Key: {
-            username: status.username,
-          timeSubmitted: status.timeSubmitted
-          },
-            UpdateExpression: 'set #status = :s, approver = :approver',
-            // ConditionExpression: 'attribute_exists(timeSubmitted)',
+  // console.log('Remibursement Dao');
+  return docClient.update({
+    TableName: 'Reimbursements2',
+    Key: {
+      username: status.username,
+      timeSubmitted: status.timeSubmitted
+    },
+    UpdateExpression: 'set #status = :s, approver = :approver',
+    // ConditionExpression: 'attribute_exists(timeSubmitted)',
 
-            ExpressionAttributeNames: {
-            '#status': 'status'
-            },
-            ExpressionAttributeValues: {
-            ':s': status.status,
-            ':approver': status.approver
-            }
-    }).promise();
+    ExpressionAttributeNames: {
+      '#status': 'status'
+    },
+    ExpressionAttributeValues: {
+      ':s': status.status,
+      ':approver': status.approver
+    }
+  }).promise();
 }
 
 export function reimbursementsByStatus(status): Promise<any> {
   // console.log('Remibursement Dao'); 
-    return docClient.query({
-        TableName: 'Reimbursements2',
-        IndexName: 'status-index',
-        KeyConditionExpression: '#s = :status',
-        ExpressionAttributeValues: {
-          ':status': status
-        },
-        ExpressionAttributeNames: {
-          '#s' : 'status'
-        }
-    }).promise();
+  return docClient.query({
+    TableName: 'Reimbursements2',
+    IndexName: 'status-index',
+    KeyConditionExpression: '#s = :status',
+    ExpressionAttributeValues: {
+      ':status': status
+    },
+    ExpressionAttributeNames: {
+      '#s': 'status'
+    }
+  }).promise();
 }
 
 export function reimbursementsByUsername(username): Promise<any> {
   // console.log('Remibursement Dao'); 
-    return docClient.query({
-        TableName: 'Reimbursements2',
-        // IndexName: 'status-index',
-        KeyConditionExpression: "#un = :username",
-    ExpressionAttributeNames:{
-        "#un": "username"
+  return docClient.query({
+    TableName: 'Reimbursements2',
+    // IndexName: 'status-index',
+    KeyConditionExpression: "#un = :username",
+    ExpressionAttributeNames: {
+      "#un": "username"
     },
     ExpressionAttributeValues: {
-        ":username":username
+      ":username": username
     }
-    }).promise();
+  }).promise();
 }
 
 // export function allReimbursements(username): Promise<any> {

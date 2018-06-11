@@ -5,41 +5,41 @@ function pending() {
     // document.getElementById("user").innerHTML = firstname + "'s reimbursements";
     // let username = sessionStorage.getItem('username')
     document.getElementById("page-title").innerHTML = 'Pending Reimbursements';
-let status = "Pending"
-fetch('http://localhost:3000/reimbursements/status/' + status)
-  .then(resp => resp.json())
-    .then((requests) => {
+    let status = "Pending"
+    fetch('http://localhost:3000/reimbursements/status/' + status)
+        .then(resp => resp.json())
+        .then((requests) => {
 
-        //CLEARS TABLE
-        const body = document.getElementById('request-table-body');
-        body.innerHTML = '';
-        requests.forEach(addPendingRequests);
-        console.log(body);
-        let stuff = body.getElementsByTagName('tr');
-        console.log(stuff.length);
-        
-        if(stuff.length === 0){
-            document.getElementById("admin-instructions").innerHTML ='No Pending Reimbursements';
-            document.getElementById("buttonAppear1").innerHTML ='';
-            document.getElementById("buttonAppear2").innerHTML = '';
-        }
-        else{
-        body.innerHTML = '';
+            //CLEARS TABLE
+            const body = document.getElementById('request-table-body');
+            body.innerHTML = '';
+            requests.forEach(addPendingRequests);
+            console.log(body);
+            let stuff = body.getElementsByTagName('tr');
+            console.log(stuff.length);
 
-        //POPULATES THE TABLE FOR EACH MOVIE
-           requests.forEach(addPendingRequests);
-        }
+            if (stuff.length === 0) {
+                document.getElementById("admin-instructions").innerHTML = 'No Pending Reimbursements';
+                document.getElementById("buttonAppear1").innerHTML = '';
+                document.getElementById("buttonAppear2").innerHTML = '';
+            }
+            else {
+                body.innerHTML = '';
+
+                //POPULATES THE TABLE FOR EACH MOVIE
+                requests.forEach(addPendingRequests);
+            }
         })
         .catch(err => {
             console.log(err);
-    });
+        });
 }
 
 function addPendingRequests(requests) {
 
-// console.log(requests)
+    // console.log(requests)
 
-    document.getElementById("admin-instructions").innerHTML ='Select a request to approve or deny.';
+    document.getElementById("admin-instructions").innerHTML = 'Select a request to approve or deny.';
 
     const body = document.getElementById('request-table-body');
 
@@ -70,15 +70,15 @@ function addPendingRequests(requests) {
     body.appendChild(row);
 }
 
-function addButtons(row){
+function addButtons(row) {
     // console.log(row);
- 
+
     sessionStorage.setItem('rUsername', row.getElementsByTagName("td")[1].innerText)
-    sessionStorage.setItem('rTime',  row.getElementsByTagName("td")[0].innerText)
+    sessionStorage.setItem('rTime', row.getElementsByTagName("td")[0].innerText)
     // console.log(row.getElementsByTagName("td")[1].innerText)
-    document.getElementById("buttonAppear1").innerHTML = '<button class="btn btn-danger" background-color="green" onclick="changeToApprove()">Approved</button>';
-    document.getElementById("buttonAppear2").innerHTML = '<button class="btn btn-danger" onclick="changeToDeny()">Denied</button>';
-    document.getElementById("admin-instructions").innerHTML = "Reimbursement by " + row.getElementsByTagName("td")[1].innerText + " on " + row.getElementsByTagName("td")[0].innerText ;
+    document.getElementById("buttonAppear1").innerHTML = '<button class="btn btn-primary" style="background-color:green" onclick="changeToApprove()">Approve</button>';
+    document.getElementById("buttonAppear2").innerHTML = '<button class="btn btn-danger" onclick="changeToDeny()">Deny</button>';
+    document.getElementById("admin-instructions").innerHTML = "Reimbursement by " + row.getElementsByTagName("td")[1].innerText + " on " + row.getElementsByTagName("td")[0].innerText;
 
 }
 
@@ -94,23 +94,24 @@ function changeToApprove(row) {
     fetch('http://localhost:3000/reimbursements/update', {
         body: JSON.stringify(status),
         headers: {
-          'content-type': 'application/json'
+            'content-type': 'application/json'
         },
         credentials: 'include',
         method: 'POST'
-      })
-    .then(resp => resp.json())
-      .then((requests) => {
-  
-          pending();
+    })
+        .then(resp => resp.json())
+        .then((requests) => {
+            document.getElementById("buttonAppear1").innerHTML = '';
+            document.getElementById("buttonAppear2").innerHTML = '';
+            pending();
 
-          })
-          .catch(err => {
-              console.log(err);
-      });
+        })
+        .catch(err => {
+            console.log(err);
+        });
 }
 function changeToDeny() {
-     rUsername = sessionStorage.getItem('rUsername')
+    rUsername = sessionStorage.getItem('rUsername')
     rTime = sessionStorage.getItem('rTime')
     let status = {
         username: rUsername,
@@ -121,27 +122,29 @@ function changeToDeny() {
     fetch('http://localhost:3000/reimbursements/update', {
         body: JSON.stringify(status),
         headers: {
-          'content-type': 'application/json'
+            'content-type': 'application/json'
         },
         credentials: 'include',
         method: 'POST'
-      })
-    .then(resp => resp.json())
-      .then((requests) => {
-  
-          pending();
-          
-          })
-          .catch(err => {
-              console.log(err);
-      });
+    })
+        .then(resp => resp.json())
+        .then((requests) => {
+
+            document.getElementById("buttonAppear1").innerHTML = '';
+            document.getElementById("buttonAppear2").innerHTML = '';
+            pending();
+
+        })
+        .catch(err => {
+            console.log(err);
+        });
 }
 
 
 
 function addOtherRequests(requests) {
-    document.getElementById("admin-instructions").innerHTML ='';
-    document.getElementById("buttonAppear1").innerHTML ='';
+    document.getElementById("admin-instructions").innerHTML = '';
+    document.getElementById("buttonAppear1").innerHTML = '';
     document.getElementById("buttonAppear2").innerHTML = '';
 
     const body = document.getElementById('request-table-body');
@@ -153,7 +156,7 @@ function addOtherRequests(requests) {
     row.appendChild(data); //APPENDS THE td TO THE row
     data = document.createElement('td');
     data.innerText = requests.username;
-    row.appendChild(data);row.appendChild(data); //APPENDS THE <td> TO THE ROW
+    row.appendChild(data); row.appendChild(data); //APPENDS THE <td> TO THE ROW
     data = document.createElement('td');
     data.innerText = requests.type;
     row.appendChild(data);
@@ -174,41 +177,41 @@ function addOtherRequests(requests) {
 
 function approved() {
     document.getElementById("page-title").innerHTML = 'Approved Reimbursements';
-    
+
     let status = "Approved"
     fetch('http://localhost:3000/reimbursements/status/' + status)
-      .then(resp => resp.json())
+        .then(resp => resp.json())
         .then((requests) => {
-    
+
             //CLEARS TABLE
             const body = document.getElementById('request-table-body');
             body.innerHTML = '';
-    
+
             //POPULATES THE TABLE FOR EACH MOVIE
-               requests.forEach(addOtherRequests);
-            })
-            .catch(err => {
-                console.log(err);
+            requests.forEach(addOtherRequests);
+        })
+        .catch(err => {
+            console.log(err);
         });
 }
 
 function denied() {
     document.getElementById("page-title").innerHTML = 'Denied Reimbursements';
     let status = "Denied"
-fetch('http://localhost:3000/reimbursements/status/' + status)
-  .then(resp => resp.json())
-    .then((requests) => {
+    fetch('http://localhost:3000/reimbursements/status/' + status)
+        .then(resp => resp.json())
+        .then((requests) => {
 
-        //CLEARS TABLE
-        const body = document.getElementById('request-table-body');
-        body.innerHTML = '';
+            //CLEARS TABLE
+            const body = document.getElementById('request-table-body');
+            body.innerHTML = '';
 
-        //POPULATES THE TABLE FOR EACH MOVIE
-           requests.forEach(addOtherRequests);
+            //POPULATES THE TABLE FOR EACH MOVIE
+            requests.forEach(addOtherRequests);
         })
         .catch(err => {
             console.log(err);
-    });
+        });
 }
 
 function changeStatus(x) {
@@ -278,11 +281,11 @@ function changeStatus(x) {
 
 function logOut() {
     fetch('http://localhost:3000/users/logout/')
-    .then((data) => {
-        alert('Now logging out!')
-        window.location= '../sign-in/sign-in.html';
-      })
+        .then((data) => {
+            alert('Now logging out!')
+            window.location = '../sign-in/sign-in.html';
+        })
         .catch(err => {
             console.log(err);
-    });
+        });
 }
