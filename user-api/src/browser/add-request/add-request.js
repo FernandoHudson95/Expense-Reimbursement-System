@@ -16,7 +16,6 @@ function submitRequest() {
 
 //USE THIS BELOW TO GET ALL ELEMENTS IN MULTIPLE ROWS IN AN ARRAY
 //
-
   // var elem = document.getElementById('container').elements;
   //       for(var i = 0; i < elem.length-4; i++)
   //       {

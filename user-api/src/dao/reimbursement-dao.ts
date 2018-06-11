@@ -21,7 +21,7 @@ export function saveReimbursement(reimbursement): Promise<any> {
 export function statusUpdate(timeSubmitted): Promise<any> {
     // console.log('Remibursement Dao');
     return docClient.update({
-        TableName: 'Reimbursements',
+        TableName: 'Reimbursements2',
         Key: {
             timeSubmitted: timeSubmitted.timeSubmitted,
             username: timeSubmitted.username
@@ -41,7 +41,7 @@ export function statusUpdate(timeSubmitted): Promise<any> {
 export function reimbursementsByStatus(status): Promise<any> {
   // console.log('Remibursement Dao'); 
     return docClient.query({
-        TableName: 'Reimbursements',
+        TableName: 'Reimbursements2',
         IndexName: 'status-index',
         KeyConditionExpression: '#s = :status',
         ExpressionAttributeValues: {
@@ -68,21 +68,21 @@ export function reimbursementsByUsername(username): Promise<any> {
     }).promise();
 }
 
-export function allReimbursements(username): Promise<any> {
-  // console.log('Remibursement Dao'); 
-    return docClient.get({
-        TableName: 'Reimbursements2',
-        Key: username
-    //     // IndexName: 'status-index',
-    //     KeyConditionExpression: "#un = :username",
-    // ExpressionAttributeNames:{
-    //     "#un": "username"
-    // },
-    // ExpressionAttributeValues: {
-    //     ":username":username
-    // }
-    }).promise();
-}
+// export function allReimbursements(username): Promise<any> {
+//   // console.log('Remibursement Dao'); 
+//     return docClient.get({
+//         TableName: 'Reimbursements2',
+//         Key: username
+//     //     // IndexName: 'status-index',
+//     //     KeyConditionExpression: "#un = :username",
+//     // ExpressionAttributeNames:{
+//     //     "#un": "username"
+//     // },
+//     // ExpressionAttributeValues: {
+//     //     ":username":username
+//     // }
+//     }).promise();
+// }
 
 // export function allReimbursementsByTime(timeSubmitted): Promise<any> {
 //   // console.log('Remibursement Dao'); 

@@ -15,7 +15,7 @@
     <link href="navbar.css" rel="stylesheet">
   </head>
 
-  <body onload="displayRequests();">
+  <body onload="pending();">
 
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
       <a class="navbar-brand" href="#" id="userName"></a>
@@ -27,19 +27,30 @@
       <div class="collapse navbar-collapse" id="navbarsExample04">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="../admin-request/admin.html">All Reimbursements<span class="sr-only">(current)</span></a>
+            <!-- <a class="nav-link" href="../admin-request/admin.html">Pending Reimbursements<span class="sr-only">(current)</span></a> -->
+            <a class="nav-link" onclick="pending()" style="cursor: pointer;">Pending Reimbursements<span class="sr-only">(current)</span></a>
+
           </li>
           <li class="nav-item">
-              <a class="nav-link" href="../admin-request/admin-requests.html" id="user"></a>
+              <a class="nav-link" onclick="approved()" style="cursor: pointer;">Approved Reimbursements</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link"  onclick="denied()" style="cursor: pointer;">Denied Reimbursements</a>
+              </li>
           <!-- <li class="nav-item">
               <a class="nav-link" href="../admin-request/admin-requests.html" id="user"></a>
             </li> -->
         </ul>
+        <!-- <form class="form-inline my-2 my-md-0">
+            <input class="form-control" type="text" placeholder="Search">
+          </form>  -->
+          
+            <button class="btn btn-danger" onclick="logOut()" style="text-align: center">Log Out</button>
+
       </div>
     </nav>
 <br>
-    <h3 style="text-align: center">All Reimbursements</h3>
+    <h3 style="text-align: center">Pending Reimbursements</h3>
 
     <div class ="row" style=" padding: 30px;
     text-align: left;">
@@ -48,6 +59,7 @@
           <thead>
             <tr>
               <th scope="col">Time Submitted</th>
+              <th scope="col">Employee</th>
               <th scope="col">Type</th>
               <th scope="col">Amount</th>
               <th scope ="col">Description</th>
@@ -63,9 +75,12 @@
       </div>
     </div>
   </div>
+  <center id="admin-instructions"></center>
+<span id="buttonAppear1" text-align="center"></span>
+<span id="buttonAppear2"></span>
 <br>
-<br>
-  <button class="btn btn-danger" onclick="logOut()" style="text-align: center">Log Out</button>
+
+  <!-- <button class="btn btn-danger" onclick="logOut()" style="text-align: center">Log Out</button> -->
 
     
 

@@ -27,6 +27,8 @@ export const reimbursementRouter = express.Router();
        return timeSubmitted ;
    }
 
+      //  console.log(req.session.username)
+
     let timeSubmitted= myFunction();
     let username = req.body[0].username;
     let type = req.body[0].title;
@@ -70,14 +72,15 @@ export const reimbursementRouter = express.Router();
   //     .then(data => {
   //       resp.json(data);
   //     })
-  //     .catch(err => {
+  //     .catch(err => {  
   //       console.log(err);
   //       resp.sendStatus(500);
   //       resp.send({ error: err.message })
   //     });
   // }]);
 
-reimbursementRouter.put('', (req, resp) => {
+reimbursementRouter.put('/Approved', (req, resp) => {
+  console.log(req)
   reimbursementService.statusUpdate(req.body)
     .then(data => {
       resp.json(data);
@@ -88,8 +91,19 @@ reimbursementRouter.put('', (req, resp) => {
     });
 });
 
-reimbursementRouter.get('/status/:status', (req, resp) => {
-  // console.log(req.params.status);
+reimbursementRouter.put('/Denied', (req, resp) => {
+  reimbursementService.statusUpdate(req.body)
+    .then(data => {
+      resp.json(data);
+    })
+    .catch(err => {
+      console.log(err);
+      resp.sendStatus(500);
+    });
+});
+
+reimbursementRouter.get('/status/:status' , (req, resp, next) => {
+  console.log(req.params.status);
   reimbursementService.reimbursementsByStatus(req.params.status)
     .then(data => {
       resp.json(data.Items);
@@ -102,6 +116,7 @@ reimbursementRouter.get('/status/:status', (req, resp) => {
 
 reimbursementRouter.get('/username/:username', (req, resp, next) => {
   // console.log(req.params.username);
+  // let username = req.session.username;
   reimbursementService.reimbursementsByUsername(req.params.username)
     .then(data => {
       // console.log(`Retrieving reimbursements for employee ${req.params.username}`);
@@ -113,18 +128,18 @@ reimbursementRouter.get('/username/:username', (req, resp, next) => {
     });
 });
 
-reimbursementRouter.get('', (req, resp, next) => {
-  // console.log(req.params.username);
-  reimbursementService.allReimbursements(req.params.username)
-    .then(data => {
-      console.log(`Retrieving all reimbursements for employee ${req.params.username}`);
-      resp.json(data.Items);
-    })
-    .catch(err => {
-      console.log(err);
-      resp.sendStatus(500);
-    });
-});
+// reimbursementRouter.get('', (req, resp, next) => {
+//   // console.log(req.params.username);
+//   reimbursementService.allReimbursements(req.params.username)
+//     .then(data => {
+//       console.log(`Retrieving all reimbursements for employee ${req.params.username}`);
+//       resp.json(data.Items);
+//     })
+//     .catch(err => {
+//       console.log(err);
+//       resp.sendStatus(500);
+//     });
+// });
 
 
 

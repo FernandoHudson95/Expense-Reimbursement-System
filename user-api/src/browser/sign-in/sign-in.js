@@ -2,10 +2,10 @@ function login() {
   const username = document.getElementById('inputUsername').value;
   const password = document.getElementById('inputPassword').value;
 
-  const credential = { username, password }; // this will create an object like {username: 'blake', password: 'pass'} based on the values in those variables
+  const credentials = { username, password }; // this will create an object like {username: 'blake', password: 'pass'} based on the values in those variables
 
   fetch('http://localhost:3000/users/login', {
-    body: JSON.stringify(credential),
+    body: JSON.stringify(credentials),
     headers: {
       'content-type': 'application/json'
     },

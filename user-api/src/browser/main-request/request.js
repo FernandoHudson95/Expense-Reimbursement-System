@@ -1,5 +1,5 @@
 function displayRequests() {
-    console.log(sessionStorage.getItem('username'))
+    // console.log(sessionStorage.getItem('username'))
     let firstname = sessionStorage.getItem('firstname')
     // alert("Welcome to your requests " + username)
     document.getElementById("user").innerHTML = firstname + "'s reimbursements";
