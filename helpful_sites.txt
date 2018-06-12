@@ -1,0 +1,64 @@
+-
+For adding a cascade to alter a constraint on a table use this website:
+	
+	http://www.java2s.com/Tutorial/Oracle/0120__Table/AddCASCADEtotheendofaDISABLECONSTRAINTclause.htm
+
+
+-S3 bucket allowed me to save my Redux demo using this link as the website to show
+
+	http://redux-demo-1.s3-website.us-east-2.amazonaws.com/#/
+
+
+-Used this to work on logging out and for user authentication 
+
+		https://medium.com/of-all-things-tech-progress/starting-with-authentication-a-tutorial-with-node-js-and-mongodb-25d524ca0359
+
+
+-used this for sessionStorage 
+
+	https://stackoverflow.com/questions/10267451/display-a-sessionstorage-item
+
+
+-used this to get all elements inside of request reimbursements
+
+	http://pietschsoft.com/post/2006/06/01/JavaScript-Loop-through-all-elements-in-a-form
+
+
+-session storage
+
+	https://www.quora.com/How-can-I-set-session-variables-with-Javascript-What-purpose-does-it-serve
+
+
+-how to kill a port if it is running when you dont want it to. 
+
+	https://stackoverflow.com/questions/39632667/how-to-kill-a-currently-using-port-on-localhost-in-windows
+
+	TL:DR :Shortcut follow steps below
+
+		C:\Users\ferna>netstat -ano | findstr :3000
+  			TCP    0.0.0.0:3000           0.0.0.0:0              LISTENING       22032
+  			TCP    [::]:3000              [::]:0                 LISTENING       22032
+
+		C:\Users\ferna>taskkill /PID 22032 /F
+		SUCCESS: The process with PID 22032 has been terminated.
+
+		C:\Users\ferna>netstat -ano | findstr :3000
+
+
+
+-youtube link for react/redux
+
+	https://www.youtube.com/watch?v=WIqbzHdEPVM
+
+-Flux deisgn pattern for React
+
+	https://medium.com/hacking-and-gonzo/flux-vs-mvc-design-patterns-57b28c0f71b7
+
+-sesion storage 
+
+	https://www.quora.com/How-can-I-set-session-variables-with-Javascript-What-purpose-does-it-serve
+
+-React Redux flashcards
+
+	https://www.brainscape.com/flashcards/w6d5-6071934/packs/9244315
+

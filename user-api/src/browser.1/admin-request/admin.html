@@ -15,9 +15,10 @@
 
   <!-- Custom styles for this template -->
   <link href="navbar.css" rel="stylesheet">
+  <link href="table.css" rel="stylesheet">
 </head>
 
-<body onload="displayRequests();">
+<body onload="pending();">
 
   <nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <a class="navbar-brand" href="#" id="userName"></a>
@@ -30,64 +31,72 @@
     <div class="collapse navbar-collapse" id="navbarsExample04">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="../main-request/request.html" id="user">
+          <!-- <a class="nav-link" href="../admin-request/admin.html">Pending Reimbursements<span class="sr-only">(current)</span></a> -->
+          <a class="nav-link" onclick="pending()" style="cursor: pointer;">Pending Reimbursements
             <span class="sr-only">(current)</span>
           </a>
+
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../add-request/add-request.html">New request</a>
+          <a class="nav-link" onclick="approved()" style="cursor: pointer;">Approved Reimbursements</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" onclick="denied()" style="cursor: pointer;">Denied Reimbursements</a>
         </li>
         <!-- <li class="nav-item">
-            <a class="nav-link disabled" href="#">Disabled</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-            <div class="dropdown-menu" aria-labelledby="dropdown04">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-          </li> -->
+              <a class="nav-link" href="../admin-request/admin-requests.html" id="user"></a>
+            </li> -->
       </ul>
+      <!-- <form class="form-inline my-2 my-md-0">
+            <input class="form-control" type="text" placeholder="Search">
+          </form>  -->
+
       <button class="btn btn-danger" onclick="logOut()" style="text-align: center">Log Out</button>
+
     </div>
   </nav>
   <br>
-  <h3 style="text-align: center">Reimbursement Request History</h3>
+  <h3 style="text-align: center" id="page-title">Pending Reimbursements</h3>
 
-  <!-- <div class="row" style="padding: 30px;
-    text-align: left;"> -->
-  <!-- <div class="col"> -->
-  <table class="table table-striped table-dark" style="width: 75%; margin-left: auto; margin-right: auto;">
-    <thead>
-      <tr>
-        <th scope="col">Time Submitted</th>
-        <th scope="col">Status</th>
-        <th scope="col">Approver</th>
-      </tr>
-    </thead>
-    <tbody id="request-table-body">
-
-    </tbody>
-  </table>
+  <div class="row" style=" padding: 30px;
+    text-align: left;">
+    <div class="col">
+      <table class="table table-striped table-dark">
+        <thead>
+          <tr>
+            <th scope="col">Time Submitted</th>
+            <th scope="col">Employee</th>
+            <th scope="col">Type</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Description</th>
+            <th scope="col">Status</th>
+            <th scope="col">Approver</th>
+          </tr>
+        </thead>
+        <tbody id="request-table-body">
+        </tbody>
+      </table>
+    </div>
+  </div>
+  </div>
+  <center id="admin-instructions"></center>
   <br>
-  <h6 id="instructions" align="center">Select a ticket to see all ticket items</h6>
-  <h5 id="ticket" align="center"></h5>
-  <div class="col">
-    <table class="table  table-striped" id="items-table" style="width: 75%; margin-left: auto; margin-right: auto;">
-
-    </table>
+  <br>
+  <div style="text-align: center">
+    <span id="buttonAppear1" align: "center"></span>
+    <span id="buttonAppear2" align: "center"></span>
   </div>
 
-  <!-- </div> -->
-  <!-- </div> -->
-  </div>
   <br>
-  <br>
+
+  <!-- <button class="btn btn-danger" onclick="logOut()" style="text-align: center">Log Out</button> -->
+
+
 
   <!-- Bootstrap core JavaScript
     ================================================== -->
   <!-- Placed at the end of the document so the pages load faster -->
+
 
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
     crossorigin="anonymous"></script>
@@ -95,7 +104,7 @@
     crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
     crossorigin="anonymous"></script>
-  <script src="request.js"></script>
+  <script src="admin.js"></script>
 
 
   <!-- THIS IS WHERE THE ALERT SHOWS UP ON THE PAGE AS HACKED ON START

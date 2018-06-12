@@ -7,32 +7,32 @@ function submitRequest() {
   // let username = sessionStorage.getItem('username')
 
  
-      let elem = document.getElementById('container').elements;
-            for(var i = 0; i < elem.length-4; i++) {
-                items1.push(elem[i].value)
-            } 
-            console.log(items1)
+  //     let elem = document.getElementById('container').elements;
+  //           for(var i = 0; i < elem.length-4; i++) {
+  //               items1.push(elem[i].value)
+  //           } 
+  //           console.log(items1)
 
-  let item = {
-    username: sessionStorage.getItem('username'),
-    title: document.getElementById('types-dropdown')[document.getElementById('types-dropdown').selectedIndex].textContent,
-    amount: document.getElementById('request-amount').value,
-    item: items1
-  }
-  items.push(item);
-
-
-  //THIS WORKS , GO BACK TO HERE IF IT DOESNT WORK ANYMORE
   // let item = {
   //   username: sessionStorage.getItem('username'),
   //   title: document.getElementById('types-dropdown')[document.getElementById('types-dropdown').selectedIndex].textContent,
   //   amount: document.getElementById('request-amount').value,
-  //   item: document.getElementById('reimbursement-description').value,
+  //   item: items1
   // }
   // items.push(item);
+
+
+  //THIS WORKS , GO BACK TO HERE IF IT DOESNT WORK ANYMORE
+  let item = {
+    username: sessionStorage.getItem('username'),
+    title: document.getElementById('types-dropdown')[document.getElementById('types-dropdown').selectedIndex].textContent,
+    amount: document.getElementById('request-amount').value,
+    item: document.getElementById('reimbursement-description').value,
+  }
+  items.push(item);
   //UP TO THIS CODE ABOVE ^^^^^^^^
   
-  // console.log(items)
+  console.log(items)
 
   //USE THIS BELOW TO GET ALL ELEMENTS IN MULTIPLE ROWS IN AN ARRAY
   //
