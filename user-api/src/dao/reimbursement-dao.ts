@@ -56,15 +56,31 @@ export function reimbursementsByStatus(status): Promise<any> {
 
 export function reimbursementsByUsername(username): Promise<any> {
   // console.log('Remibursement Dao'); 
+  // console.log(username + 'in dao');
   return docClient.query({
     TableName: 'Reimbursements2',
-    // IndexName: 'status-index',
+    // IndexName: 'timeSubmitted-index',
     KeyConditionExpression: "#un = :username",
     ExpressionAttributeNames: {
-      "#un": "username"
+      "#un": "username",
+      // ":timeSubmitted": "timeSubmitted"
     },
     ExpressionAttributeValues: {
+      // ":timeSubmitted": timeSubmitted,
       ":username": username
+    }
+  }).promise();
+}
+
+export function reimbursementsByUsernameTime(username, timeSubmitted): Promise<any> {
+  // console.log('Remibursement Dao'); 
+  console.log(username + ' in dao ' + timeSubmitted);
+  return docClient.get({
+    TableName: 'Reimbursements2',
+    // IndexName: 'timeSubmitted-index',
+    Key: {
+      'username': username,
+      'timeSubmitted': timeSubmitted
     }
   }).promise();
 }

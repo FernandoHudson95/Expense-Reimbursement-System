@@ -28,3 +28,8 @@ export function reimbursementsByUsername(username) {
     // console.log('Reimbursement service');
     return reimbusementDao.reimbursementsByUsername(username);
 }
+
+export function reimbursementsByUsernameTime(username, timeSubmitted) {
+    // console.log('Reimbursement service');
+    return reimbusementDao.reimbursementsByUsernameTime(username, timeSubmitted);
+}

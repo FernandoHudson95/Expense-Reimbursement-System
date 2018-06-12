@@ -7,6 +7,8 @@ function pending() {
     document.getElementById("buttonAppear1").innerHTML = '';
     document.getElementById("buttonAppear2").innerHTML = '';
     document.getElementById("page-title").innerHTML = 'Pending Reimbursements';
+    document.getElementById('admin-items-table').innerHTML = '';
+    
     let status = "Pending"
     fetch('http://localhost:3000/reimbursements/status/' + status)
         .then(resp => resp.json())
@@ -28,7 +30,6 @@ function pending() {
             else {
                 body.innerHTML = '';
 
-                //POPULATES THE TABLE FOR EACH MOVIE
                 requests.forEach(addPendingRequests);
             }
         })
@@ -73,16 +74,17 @@ function addPendingRequests(requests) {
 }
 
 function addButtons(row) {
-    console.log(row)
+    // console.log(row)
 
     let username = row.getElementsByTagName("td")[1].innerText
-    console.log(username)
+    let timeSubmitted = row.getElementsByTagName("td")[0].innerText
+
+    // console.log(username)
 
 
-    fetch('http://localhost:3000/reimbursements/username/' + username)
+    fetch('http://localhost:3000/reimbursements/username/' + username + '/timeSubmitted/' + timeSubmitted)
         .then(resp => resp.json())
         .then((requests) => {
-
             // console.log(requests[row.rowIndex].items)
             // console.log(row.rowIndex)
             //CLEARS TABLE
@@ -90,11 +92,11 @@ function addButtons(row) {
             if (body.innerHTML !== '') {
                 body.innerHTML = '';
                 // requests.forEach(addItems);
-                addItems(requests[row.rowIndex - 1].items)
+                addItems(requests.items)
             }
             else {
                 // requests.forEach(addItems);
-                addItems(requests[row.rowIndex - 1].items)
+                addItems(requests.items)
 
             }
         })
@@ -107,13 +109,13 @@ function addButtons(row) {
     // console.log(row.getElementsByTagName("td")[1].innerText)
     document.getElementById("buttonAppear1").innerHTML = '<button class="btn btn-primary" style="background-color:green" onclick="changeToApprove()">Approve</button>';
     document.getElementById("buttonAppear2").innerHTML = '<button class="btn btn-danger" onclick="changeToDeny()">Deny</button>';
-    document.getElementById("admin-instructions").innerHTML = "Reimbursement by " + row.getElementsByTagName("td")[1].innerText + " on " + row.getElementsByTagName("td")[0].innerText;
+    document.getElementById("admin-instructions").innerHTML = row.getElementsByTagName("td")[1].innerText + "'s ticket from " + row.getElementsByTagName("td")[0].innerText;
 
 }
 
 function addItems(requests) {
     // count++;
-    const body = document.getElementById('items-table');
+    const body = document.getElementById('admin-items-table');
     let row = document.createElement('tr'); //CREATES <tr>
     let data = document.createElement('th'); //CREATES <td>
     data.innerText = "Type"; //ASSIGNS VALUE TO THE TD
@@ -129,7 +131,7 @@ function addItems(requests) {
     row.appendChild(data);
     body.appendChild(row);
 
-    console.log(requests.length)
+    // console.log(requests.length)
     for (let i = 0; i < requests.length; i += 4) {
         let row = document.createElement('tr'); //CREATES <tr>
         let data = document.createElement('td'); //CREATES <td>
@@ -150,6 +152,8 @@ function addItems(requests) {
 }
 
 function changeToApprove(row) {
+    document.getElementById('admin-items-table').innerHTML = '';
+
     rUsername = sessionStorage.getItem('rUsername')
     rTime = sessionStorage.getItem('rTime')
     let status = {
@@ -168,6 +172,7 @@ function changeToApprove(row) {
     })
         .then(resp => resp.json())
         .then((requests) => {
+            // document.getElementById('admin-items-table').innerHTML = '';
             document.getElementById("buttonAppear1").innerHTML = '';
             document.getElementById("buttonAppear2").innerHTML = '';
             pending();
@@ -196,7 +201,7 @@ function changeToDeny() {
     })
         .then(resp => resp.json())
         .then((requests) => {
-
+            document.getElementById('admin-items-table').innerHTML = '';
             document.getElementById("buttonAppear1").innerHTML = '';
             document.getElementById("buttonAppear2").innerHTML = '';
             pending();
@@ -210,7 +215,7 @@ function changeToDeny() {
 
 
 function addOtherRequests(requests) {
-    document.getElementById("admin-instructions").innerHTML = '';
+    // document.getElementById("admin-instructions").innerHTML = '';
     document.getElementById("buttonAppear1").innerHTML = '';
     document.getElementById("buttonAppear2").innerHTML = '';
 
@@ -219,20 +224,21 @@ function addOtherRequests(requests) {
     const row = document.createElement('tr'); //CREATES <tr>
     let data = document.createElement('td'); //CREATES <td>
     data.innerText = requests.timeSubmitted; //ASSIGNS VALUE TO THE TD
-    // row.setAttribute("onclick", "changeStatus(this)")
+    row.setAttribute("onclick", "showItems(this)")
+    row.setAttribute("style", "cursor: pointer;")
     row.appendChild(data); //APPENDS THE td TO THE row
     data = document.createElement('td');
     data.innerText = requests.username;
     row.appendChild(data); row.appendChild(data); //APPENDS THE <td> TO THE ROW
-    data = document.createElement('td');
-    data.innerText = requests.type;
-    row.appendChild(data);
-    data = document.createElement('td');
-    data.innerText = requests.amount;
-    row.appendChild(data);
-    data = document.createElement('td');
-    data.innerText = requests.items;
-    row.appendChild(data);
+    // data = document.createElement('td');
+    // data.innerText = requests.type;
+    // row.appendChild(data);
+    // data = document.createElement('td');
+    // data.innerText = requests.amount;
+    // row.appendChild(data);
+    // data = document.createElement('td');
+    // data.innerText = requests.items;
+    // row.appendChild(data);
     data = document.createElement('td');
     data.innerText = requests.status;
     row.appendChild(data);
@@ -246,6 +252,9 @@ function approved() {
     document.getElementById("page-title").innerHTML = 'Approved Reimbursements';
     document.getElementById("buttonAppear1").innerHTML = '';
     document.getElementById("buttonAppear2").innerHTML = '';
+    document.getElementById('admin-items-table').innerHTML = '';
+    document.getElementById("admin-instructions").innerHTML = 'Select a reimbursement request to see each items.';
+
 
     let status = "Approved"
     fetch('http://localhost:3000/reimbursements/status/' + status)
@@ -256,7 +265,6 @@ function approved() {
             const body = document.getElementById('request-table-body');
             body.innerHTML = '';
 
-            //POPULATES THE TABLE FOR EACH MOVIE
             requests.forEach(addOtherRequests);
         })
         .catch(err => {
@@ -268,6 +276,9 @@ function denied() {
     document.getElementById("page-title").innerHTML = 'Denied Reimbursements';
     document.getElementById("buttonAppear1").innerHTML = '';
     document.getElementById("buttonAppear2").innerHTML = '';
+    document.getElementById('admin-items-table').innerHTML = '';
+    document.getElementById("admin-instructions").innerHTML = 'Select a reimbursement request to see each items.';
+
     let status = "Denied"
     fetch('http://localhost:3000/reimbursements/status/' + status)
         .then(resp => resp.json())
@@ -277,7 +288,6 @@ function denied() {
             const body = document.getElementById('request-table-body');
             body.innerHTML = '';
 
-            //POPULATES THE TABLE FOR EACH MOVIE
             requests.forEach(addOtherRequests);
         })
         .catch(err => {
@@ -285,17 +295,75 @@ function denied() {
         });
 }
 
-function changeStatus(x) {
-    // console.log(x.rowIndex)
-    let status = document.getElementsByTagName("td");
-    // .rows[0].cells[0].innerHTML
-    // console.log(status)
+function showItems(row) {
+    let username = row.getElementsByTagName("td")[1].innerText
+    let timeSubmitted = row.getElementsByTagName("td")[0].innerText
 
-    // var rows = document.getElementsByTagName("td");
-    // console.log(x.innerText)
-    // if(x.innerText === "Pending"){
-    //     alert("New status is changed")
-    // }
+    // console.log(username)
+
+
+    fetch('http://localhost:3000/reimbursements/username/' + username + '/timeSubmitted/' + timeSubmitted)
+        .then(resp => resp.json())
+        .then((requests) => {
+
+            // console.log(requests[row.rowIndex].items)
+            // console.log(row.rowIndex)
+            //CLEARS TABLE
+            const body = document.getElementById('admin-items-table');
+            if (body.innerHTML !== '') {
+                body.innerHTML = '';
+                // requests.forEach(addItems);
+                addItems(requests.items)
+            }
+            else {
+                // requests.forEach(addItems);
+                addItems(requests.items)
+
+            }
+        })
+        .catch(err => {
+            console.log(err);
+        });
+
+    sessionStorage.setItem('rUsername', row.getElementsByTagName("td")[1].innerText)
+    sessionStorage.setItem('rTime', row.getElementsByTagName("td")[0].innerText)
+}
+function addItems(requests) {
+    // count++;
+    const body = document.getElementById('admin-items-table');
+    let row = document.createElement('tr'); //CREATES <tr>
+    let data = document.createElement('th'); //CREATES <td>
+    data.innerText = "Type"; //ASSIGNS VALUE TO THE TD
+    row.appendChild(data); //APPENDS THE td TO THE row
+    data = document.createElement('th');
+    data.innerText = "Amount";
+    row.appendChild(data);
+    data = document.createElement('th');
+    data.innerText = "Description";
+    row.appendChild(data);
+    data = document.createElement('th');
+    data.innerText = "Date of Expense";
+    row.appendChild(data);
+    body.appendChild(row);
+
+    // console.log(requests.length)
+    for (let i = 0; i < requests.length; i += 4) {
+        let row = document.createElement('tr'); //CREATES <tr>
+        let data = document.createElement('td'); //CREATES <td>
+        data.innerText = requests[i]; //ASSIGNS VALUE TO THE TD
+        row.appendChild(data); //APPENDS THE td TO THE row
+        data = document.createElement('td');
+        data.innerText = requests[i + 1];
+        row.appendChild(data);
+        data = document.createElement('td');
+        data.innerText = requests[i + 2];
+        row.appendChild(data);
+        data = document.createElement('td');
+        data.innerText = requests[i + 3];
+        row.appendChild(data);
+        body.appendChild(row);
+    }
+
 }
 
 // function displayRequests() {
@@ -315,7 +383,6 @@ function changeStatus(x) {
 //         const body = document.getElementById('request-table-body');
 //         body.innerHTML = '';
 
-//         //POPULATES THE TABLE FOR EACH MOVIE
 //            requests.forEach(addRequests);
 //         })
 //         .catch(err => {

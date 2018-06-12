@@ -6,28 +6,28 @@ function displayRequests() {
     let username = sessionStorage.getItem('username')
 
 
-    fetch('http://localhost:3000/reimbursements/username/' + username)
-        .then(resp => resp.json())
-        .then((requests) => {
+fetch('http://localhost:3000/reimbursements/username/' + username)
+  .then(resp => resp.json())
+    .then((requests) => {
 
-            console.log(requests)
-            //CLEARS TABLE
-            const body = document.getElementById('request-table-body');
-            body.innerHTML = '';
+        console.log(requests)
+        //CLEARS TABLE
+        const body = document.getElementById('request-table-body');
+        body.innerHTML = '';
 
-            //POPULATES THE TABLE FOR EACH MOVIE
-            requests.forEach(addRequests);
+        //POPULATES THE TABLE FOR EACH MOVIE
+           requests.forEach(addRequests);
         })
         .catch(err => {
             console.log(err);
-        });
+    });
 }
 
 let count = 0;
 
 function addRequests(requests) {
-    count++;
-    console.log(count)
+count++;
+console.log(count)
     const body = document.getElementById('request-table-body');
 
     let row = document.createElement('tr'); //CREATES <tr>
@@ -76,82 +76,82 @@ function addRequests(requests) {
 
 }
 
-function showItems(row) {
+function showItems(row){
     console.log(row)
     let username = sessionStorage.getItem('username')
     document.getElementById("ticket").innerText = `Ticket from ${row.getElementsByTagName("td")[0].innerText}`
     document.getElementById("instructions").innerText = ''
 
 
-    fetch('http://localhost:3000/reimbursements/username/' + username)
-        .then(resp => resp.json())
-        .then((requests) => {
+fetch('http://localhost:3000/reimbursements/username/' + username)
+  .then(resp => resp.json())
+    .then((requests) => {
 
-            // console.log(requests[row.rowIndex].items)
-            // console.log(row.rowIndex)
-            //CLEARS TABLE
-            const body = document.getElementById('items-table');
-            if (body.innerHTML !== '') {
-                body.innerHTML = '';
-                // requests.forEach(addItems);
-                addItems(requests[row.rowIndex - 1].items)
-            }
-            else {
-                // requests.forEach(addItems);
-                addItems(requests[row.rowIndex - 1].items)
+        // console.log(requests[row.rowIndex].items)
+        // console.log(row.rowIndex)
+        //CLEARS TABLE
+        const body = document.getElementById('items-table');
+        if (body.innerHTML !== ''){
+            body.innerHTML = '';
+            // requests.forEach(addItems);
+            addItems(requests[row.rowIndex-1].items)
+        }
+        else{
+            // requests.forEach(addItems);
+            addItems(requests[row.rowIndex-1].items)
 
-            }
-        })
-        .catch(err => {
-            console.log(err);
-        });
+        }
+    })
+    .catch(err => {
+        console.log(err);
+    });
 }
 
 function addItems(requests) {
     // count++;
-    const body = document.getElementById('items-table');
-    let row = document.createElement('tr'); //CREATES <tr>
-    let data = document.createElement('th'); //CREATES <td>
-    data.innerText = "Type"; //ASSIGNS VALUE TO THE TD
-    row.appendChild(data); //APPENDS THE td TO THE row
-    data = document.createElement('th');
-    data.innerText = "Amount";
-    row.appendChild(data);
-    data = document.createElement('th');
-    data.innerText = "Description";
-    row.appendChild(data);
-    data = document.createElement('th');
-    data.innerText = "Date of Expense";
-    row.appendChild(data);
-    body.appendChild(row);
+        const body = document.getElementById('items-table');
+        let row = document.createElement('tr'); //CREATES <tr>
+        let data = document.createElement('th'); //CREATES <td>
+        data.innerText = "Type"; //ASSIGNS VALUE TO THE TD
+        row.appendChild(data); //APPENDS THE td TO THE row
+        data = document.createElement('th');
+        data.innerText = "Amount";
+        row.appendChild(data);
+        data = document.createElement('th');
+        data.innerText = "Description";
+        row.appendChild(data);
+        data = document.createElement('th');
+        data.innerText = "Date of Expense";
+        row.appendChild(data);
+        body.appendChild(row);
 
-    console.log(requests.length)
-    for (let i = 0; i < requests.length; i += 4) {
+        console.log(requests.length)
+        for(let i = 0; i< requests.length; i += 4){
         let row = document.createElement('tr'); //CREATES <tr>
         let data = document.createElement('td'); //CREATES <td>
         data.innerText = requests[i]; //ASSIGNS VALUE TO THE TD
         row.appendChild(data); //APPENDS THE td TO THE row
         data = document.createElement('td');
-        data.innerText = requests[i + 1];
+        data.innerText = requests[i+1];
         row.appendChild(data);
         data = document.createElement('td');
-        data.innerText = requests[i + 2];
+        data.innerText = requests[i+2];
         row.appendChild(data);
         data = document.createElement('td');
-        data.innerText = requests[i + 3];
+        data.innerText = requests[i+3];
         row.appendChild(data);
         body.appendChild(row);
-    }
-
+        }
+        
 }
 
 function logOut() {
     fetch('http://localhost:3000/users/logout/')
-        .then((data) => {
-            alert('Now logging out!')
-            window.location = '../sign-in/sign-in.html';
-        })
+    .then((data) => {
+        alert('Now logging out!')
+        window.location= '../sign-in/sign-in.html';
+      })
         .catch(err => {
             console.log(err);
-        });
+    });
 }

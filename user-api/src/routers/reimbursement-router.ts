@@ -117,6 +117,20 @@ reimbursementRouter.get('/username/:username', (req, resp, next) => {
     });
 });
 
+reimbursementRouter.get('/username/:username/timeSubmitted/:timeSubmitted', (req, resp, next) => {
+  // console.log(req.params.username);
+  // let username = req.session.username;
+  reimbursementService.reimbursementsByUsernameTime(req.params.username, req.params.timeSubmitted)
+    .then(data => {
+      // console.log(`Retrieving reimbursements for employee ${req.params.username}`);
+      resp.json(data.Item);
+    })
+    .catch(err => {
+      console.log(err);
+      resp.sendStatus(500);
+    });
+});
+
 reimbursementRouter.get('/username/:username/status/:status', (req, resp, next) => {
   // console.log(req.params.username);
   // let username = req.session.username;
