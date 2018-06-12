@@ -4,6 +4,8 @@ function pending() {
     // alert("Welcome to your requests " + username)
     // document.getElementById("user").innerHTML = firstname + "'s reimbursements";
     // let username = sessionStorage.getItem('username')
+    document.getElementById("buttonAppear1").innerHTML = '';
+    document.getElementById("buttonAppear2").innerHTML = '';
     document.getElementById("page-title").innerHTML = 'Pending Reimbursements';
     let status = "Pending"
     fetch('http://localhost:3000/reimbursements/status/' + status)
@@ -52,14 +54,14 @@ function addPendingRequests(requests) {
     data = document.createElement('td');
     data.innerText = requests.username;
     row.appendChild(data);
-    data = document.createElement('td');
-    data.innerText = requests.type;
-    row.appendChild(data);
-    data = document.createElement('td');
-    data.innerText = requests.amount;
-    row.appendChild(data);
-    data = document.createElement('td');
-    data.innerText = requests.items;
+    // data = document.createElement('td');
+    // data.innerText = requests.type;
+    // row.appendChild(data);
+    // data = document.createElement('td');
+    // data.innerText = requests.amount;
+    // row.appendChild(data);
+    // data = document.createElement('td');
+    // data.innerText = requests.items;
     row.appendChild(data);
     data = document.createElement('td');
     data.innerText = requests.status;
@@ -71,7 +73,34 @@ function addPendingRequests(requests) {
 }
 
 function addButtons(row) {
-    // console.log(row);
+    console.log(row)
+
+    let username = row.getElementsByTagName("td")[1].innerText
+    console.log(username)
+
+
+    fetch('http://localhost:3000/reimbursements/username/' + username)
+        .then(resp => resp.json())
+        .then((requests) => {
+
+            // console.log(requests[row.rowIndex].items)
+            // console.log(row.rowIndex)
+            //CLEARS TABLE
+            const body = document.getElementById('admin-items-table');
+            if (body.innerHTML !== '') {
+                body.innerHTML = '';
+                // requests.forEach(addItems);
+                addItems(requests[row.rowIndex - 1].items)
+            }
+            else {
+                // requests.forEach(addItems);
+                addItems(requests[row.rowIndex - 1].items)
+
+            }
+        })
+        .catch(err => {
+            console.log(err);
+        });
 
     sessionStorage.setItem('rUsername', row.getElementsByTagName("td")[1].innerText)
     sessionStorage.setItem('rTime', row.getElementsByTagName("td")[0].innerText)
@@ -79,6 +108,44 @@ function addButtons(row) {
     document.getElementById("buttonAppear1").innerHTML = '<button class="btn btn-primary" style="background-color:green" onclick="changeToApprove()">Approve</button>';
     document.getElementById("buttonAppear2").innerHTML = '<button class="btn btn-danger" onclick="changeToDeny()">Deny</button>';
     document.getElementById("admin-instructions").innerHTML = "Reimbursement by " + row.getElementsByTagName("td")[1].innerText + " on " + row.getElementsByTagName("td")[0].innerText;
+
+}
+
+function addItems(requests) {
+    // count++;
+    const body = document.getElementById('items-table');
+    let row = document.createElement('tr'); //CREATES <tr>
+    let data = document.createElement('th'); //CREATES <td>
+    data.innerText = "Type"; //ASSIGNS VALUE TO THE TD
+    row.appendChild(data); //APPENDS THE td TO THE row
+    data = document.createElement('th');
+    data.innerText = "Amount";
+    row.appendChild(data);
+    data = document.createElement('th');
+    data.innerText = "Description";
+    row.appendChild(data);
+    data = document.createElement('th');
+    data.innerText = "Date of Expense";
+    row.appendChild(data);
+    body.appendChild(row);
+
+    console.log(requests.length)
+    for (let i = 0; i < requests.length; i += 4) {
+        let row = document.createElement('tr'); //CREATES <tr>
+        let data = document.createElement('td'); //CREATES <td>
+        data.innerText = requests[i]; //ASSIGNS VALUE TO THE TD
+        row.appendChild(data); //APPENDS THE td TO THE row
+        data = document.createElement('td');
+        data.innerText = requests[i + 1];
+        row.appendChild(data);
+        data = document.createElement('td');
+        data.innerText = requests[i + 2];
+        row.appendChild(data);
+        data = document.createElement('td');
+        data.innerText = requests[i + 3];
+        row.appendChild(data);
+        body.appendChild(row);
+    }
 
 }
 
@@ -177,6 +244,8 @@ function addOtherRequests(requests) {
 
 function approved() {
     document.getElementById("page-title").innerHTML = 'Approved Reimbursements';
+    document.getElementById("buttonAppear1").innerHTML = '';
+    document.getElementById("buttonAppear2").innerHTML = '';
 
     let status = "Approved"
     fetch('http://localhost:3000/reimbursements/status/' + status)
@@ -197,6 +266,8 @@ function approved() {
 
 function denied() {
     document.getElementById("page-title").innerHTML = 'Denied Reimbursements';
+    document.getElementById("buttonAppear1").innerHTML = '';
+    document.getElementById("buttonAppear2").innerHTML = '';
     let status = "Denied"
     fetch('http://localhost:3000/reimbursements/status/' + status)
         .then(resp => resp.json())
