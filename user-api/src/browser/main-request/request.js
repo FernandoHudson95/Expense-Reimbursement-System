@@ -149,6 +149,7 @@ function logOut() {
     fetch('http://localhost:3000/users/logout/')
     .then((data) => {
         alert('Now logging out!')
+        sessionStorage.clear();
         window.location= '../sign-in/sign-in.html';
       })
         .catch(err => {
