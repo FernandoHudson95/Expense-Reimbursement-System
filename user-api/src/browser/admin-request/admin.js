@@ -55,15 +55,6 @@ function addPendingRequests(requests) {
     data = document.createElement('td');
     data.innerText = requests.username;
     row.appendChild(data);
-    // data = document.createElement('td');
-    // data.innerText = requests.type;
-    // row.appendChild(data);
-    // data = document.createElement('td');
-    // data.innerText = requests.amount;
-    // row.appendChild(data);
-    // data = document.createElement('td');
-    // data.innerText = requests.items;
-    row.appendChild(data);
     data = document.createElement('td');
     data.innerText = requests.status;
     row.appendChild(data);
@@ -215,9 +206,7 @@ function changeToDeny() {
 
 
 function addOtherRequests(requests) {
-    // document.getElementById("admin-instructions").innerHTML = '';
     document.getElementById("buttonAppear1").innerHTML = '';
-    document.getElementById("buttonAppear2").innerHTML = '';
 
     const body = document.getElementById('request-table-body');
 
@@ -230,15 +219,6 @@ function addOtherRequests(requests) {
     data = document.createElement('td');
     data.innerText = requests.username;
     row.appendChild(data); row.appendChild(data); //APPENDS THE <td> TO THE ROW
-    // data = document.createElement('td');
-    // data.innerText = requests.type;
-    // row.appendChild(data);
-    // data = document.createElement('td');
-    // data.innerText = requests.amount;
-    // row.appendChild(data);
-    // data = document.createElement('td');
-    // data.innerText = requests.items;
-    // row.appendChild(data);
     data = document.createElement('td');
     data.innerText = requests.status;
     row.appendChild(data);
@@ -249,11 +229,11 @@ function addOtherRequests(requests) {
 }
 
 function approved() {
-    document.getElementById("page-title").innerHTML = 'Approved Reimbursements';
+    document.getElementById("page-title").innerHTML = 'Approved Reimbursement Requests';
     document.getElementById("buttonAppear1").innerHTML = '';
     document.getElementById("buttonAppear2").innerHTML = '';
     document.getElementById('admin-items-table').innerHTML = '';
-    document.getElementById("admin-instructions").innerHTML = 'Select a reimbursement request to see each items.';
+    document.getElementById("admin-instructions").innerHTML = 'Select a reimbursement request';
 
 
     let status = "Approved"
@@ -273,11 +253,11 @@ function approved() {
 }
 
 function denied() {
-    document.getElementById("page-title").innerHTML = 'Denied Reimbursements';
+    document.getElementById("page-title").innerHTML = 'Denied Reimbursement Requests';
     document.getElementById("buttonAppear1").innerHTML = '';
     document.getElementById("buttonAppear2").innerHTML = '';
     document.getElementById('admin-items-table').innerHTML = '';
-    document.getElementById("admin-instructions").innerHTML = 'Select a reimbursement request to see each items.';
+    document.getElementById("admin-instructions").innerHTML = 'Select a reimbursement request';
 
     let status = "Denied"
     fetch('http://localhost:3000/reimbursements/status/' + status)
@@ -298,6 +278,12 @@ function denied() {
 function showItems(row) {
     let username = row.getElementsByTagName("td")[1].innerText
     let timeSubmitted = row.getElementsByTagName("td")[0].innerText
+
+    sessionStorage.setItem('rUsername', row.getElementsByTagName("td")[1].innerText)
+    sessionStorage.setItem('rTime', row.getElementsByTagName("td")[0].innerText)
+    document.getElementById("buttonAppear1").innerHTML = '<button class="btn btn-primary" style="background-color:green" onclick="changeToApprove()">Approve</button>';
+    document.getElementById("buttonAppear2").innerHTML = '<button class="btn btn-danger" onclick="changeToDeny()">Deny</button>';
+    document.getElementById("admin-instructions").innerHTML = row.getElementsByTagName("td")[1].innerText + "'s ticket from " + row.getElementsByTagName("td")[0].innerText;
 
     // console.log(username)
 
