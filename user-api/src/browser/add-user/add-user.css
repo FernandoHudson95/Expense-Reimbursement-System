@@ -13,7 +13,7 @@ body {
 .form-submit {
   display: block;
   border: none;
-  width: 80%;
+  width: 20%;
   margin: 15px auto;
   padding: 15px;
   border-radius: 5px;
@@ -31,31 +31,28 @@ body {
   color: #fff;
 }
 
-.form-control {         /* POSSIBLY GOING TO KEEP THIS COMMENTED OUT SO TEXTBOXES COULD BE SEEN EASIER.  */
-  position: relative;   /* UNCOMMENT THESE ALL BELOW AS WELL FOR A SEE THROUGH BOX BUT CAN'T FIX COLOR OF PLACEHOLDER.  */
+.form-control {         /* POSSIBLY GOING TO KEEP THIS COMMENTED OUT SO TEXTBOXES COULD BE SEEN EASIER. */
+   position: relative;   /*UNCOMMENT THESE ALL BELOW AS WELL FOR A SEE THROUGH BOX BUT CAN'T FIX COLOR OF PLACEHOLDER.  */
 }   
 
 .form-control {
   display: block;
   width: 100%;
   height: 50px;
-  background: none;
+  background: #ffffff1a;  /*THIS COLOR DOES THE BACKGROUND OF THE INPUT BOXES*/
+
   border: 1px solid rgba(255, 255, 255, 0.2);
   padding: 0 40px; 
-  transition: background 200ms;
-  color: #fff;
-  color: #edb4a6;
-
-  color: #9e9770c2;
   font-weight: lighter;
   letter-spacing: 0.09em;
-}
+} 
+
 .form__input:focus {
   background: #ffffff1a;
 }
 
 input {
--webkit-text-fill-color: #edb4a6;
+-webkit-text-fill-color: #f0dfdb; /*THIS IS THE COLOR OF THE LETTERS IN THE INPUT BOXES */
 }
 select {
   display: block;
@@ -64,10 +61,20 @@ select {
 
   #select {
     margin: 0 auto;
-    width: 100px;    
+    width: 100px;  
 } 
+
+select {  
+  background: #ffffff1a;             /*THIS IS THE COLOR OF THE BACKGROUND OF THE SELECT BOX */
+  -webkit-text-fill-color: #f0dfdb; /*THIS IS THE COLOR OF THE LETTERS IN THE SELECT LIST */
+
+} 
+
+
 
 .form-control:focus {
   background: rgba(255, 255, 255, 0.1);
 }
+
+
 

@@ -19,7 +19,6 @@ export function saveReimbursement(reimbursement): Promise<any> {
 }
 
 export function statusUpdate(status): Promise<any> {
-  // console.log('Remibursement Dao');
   return docClient.update({
     TableName: 'Reimbursements2',
     Key: {
@@ -27,7 +26,6 @@ export function statusUpdate(status): Promise<any> {
       timeSubmitted: status.timeSubmitted
     },
     UpdateExpression: 'set #status = :s, approver = :approver',
-    // ConditionExpression: 'attribute_exists(timeSubmitted)',
 
     ExpressionAttributeNames: {
       '#status': 'status'
@@ -40,7 +38,6 @@ export function statusUpdate(status): Promise<any> {
 }
 
 export function reimbursementsByStatus(status): Promise<any> {
-  // console.log('Remibursement Dao'); 
   return docClient.query({
     TableName: 'Reimbursements2',
     IndexName: 'status-index',
@@ -55,18 +52,13 @@ export function reimbursementsByStatus(status): Promise<any> {
 }
 
 export function reimbursementsByUsername(username): Promise<any> {
-  // console.log('Remibursement Dao'); 
-  // console.log(username + 'in dao');
   return docClient.query({
     TableName: 'Reimbursements2',
-    // IndexName: 'timeSubmitted-index',
     KeyConditionExpression: "#un = :username",
     ExpressionAttributeNames: {
       "#un": "username",
-      // ":timeSubmitted": "timeSubmitted"
     },
     ExpressionAttributeValues: {
-      // ":timeSubmitted": timeSubmitted,
       ":username": username
     }
   }).promise();
@@ -77,40 +69,9 @@ export function reimbursementsByUsernameTime(username, timeSubmitted): Promise<a
   console.log(username + ' in dao ' + timeSubmitted);
   return docClient.get({
     TableName: 'Reimbursements2',
-    // IndexName: 'timeSubmitted-index',
     Key: {
       'username': username,
       'timeSubmitted': timeSubmitted
     }
   }).promise();
 }
-
-// export function allReimbursements(username): Promise<any> {
-//   // console.log('Remibursement Dao'); 
-//     return docClient.get({
-//         TableName: 'Reimbursements2',
-//         Key: username
-//     //     // IndexName: 'status-index',
-//     //     KeyConditionExpression: "#un = :username",
-//     // ExpressionAttributeNames:{
-//     //     "#un": "username"
-//     // },
-//     // ExpressionAttributeValues: {
-//     //     ":username":username
-//     // }
-//     }).promise();
-// }
-
-// export function allReimbursementsByTime(timeSubmitted): Promise<any> {
-//   // console.log('Remibursement Dao'); 
-//     return docClient.query({
-//         TableName: 'Reimbursements',
-//         KeyConditionExpression: "#ts = :timeSubmitted",
-//     ExpressionAttributeNames:{
-//         "#ts": "timeSubmitted"
-//     },
-//     ExpressionAttributeValues: {
-//         ":timeSubmitted":timeSubmitted
-//     }
-//     }).promise();
-// }
