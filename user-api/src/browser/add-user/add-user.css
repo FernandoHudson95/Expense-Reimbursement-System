@@ -1,0 +1,73 @@
+ *,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Lato", sans-serif;
+  color: #fff;
+  background: #d86450;
+}
+
+.form-submit {
+  display: block;
+  border: none;
+  width: 80%;
+  margin: 15px auto;
+  padding: 15px;
+  border-radius: 5px;
+  line-height: 1;
+  color: #d86450;
+  font-weight: bold;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: 400ms;
+  letter-spacing: 0.08em;
+}
+.form-submit:hover {
+  border-color: #fff;
+  background-color: transparent;
+  color: #fff;
+}
+
+.form-control {         /* POSSIBLY GOING TO KEEP THIS COMMENTED OUT SO TEXTBOXES COULD BE SEEN EASIER.  */
+  position: relative;   /* UNCOMMENT THESE ALL BELOW AS WELL FOR A SEE THROUGH BOX BUT CAN'T FIX COLOR OF PLACEHOLDER.  */
+}   
+
+.form-control {
+  display: block;
+  width: 100%;
+  height: 50px;
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0 40px; 
+  transition: background 200ms;
+  color: #fff;
+  color: #edb4a6;
+
+  color: #9e9770c2;
+  font-weight: lighter;
+  letter-spacing: 0.09em;
+}
+.form__input:focus {
+  background: #ffffff1a;
+}
+
+input {
+-webkit-text-fill-color: #edb4a6;
+}
+select {
+  display: block;
+  margin: 0 auto;
+}
+
+  #select {
+    margin: 0 auto;
+    width: 100px;    
+} 
+
+.form-control:focus {
+  background: rgba(255, 255, 255, 0.1);
+}
+

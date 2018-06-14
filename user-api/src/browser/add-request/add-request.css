@@ -1,0 +1,106 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Lato", sans-serif;
+  color: #fff;
+  background: #d86450;
+}
+
+.form-submit {
+  display: inline-block;
+  border: none;
+  width: 20%;
+  margin: 15px auto;
+  padding: 15px;
+  border-radius: 5px;
+  line-height: 1;
+  color: #d86450;
+  font-weight: bold;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: 400ms;
+  letter-spacing: 0.08em;
+  align-content: center
+}
+.form-submit:hover {
+  border-color: #fff;
+  background-color: transparent;
+  color: #fff;
+}
+.form-control:focus {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+#buttonHolder1 {
+  text-align: center
+}
+
+#buttonHolder2 {
+  text-align: center;
+
+}
+
+::-webkit-input-placeholder {
+  color: #edb4a6;
+}
+
+textarea:focus,
+input:focus {
+  outline: none;
+}
+
+.info {
+  text-align: center;
+}
+.info a {
+  display: inline-block;
+  font-size: 0.75em;
+  font-weight: lighter;
+  letter-spacing: 0.08em;
+  color: #fff;
+  padding-bottom: 5px;
+  border-bottom: 1px solid transparent;
+}
+.info a:hover {
+  border-color: #fff;
+  text-decoration: none;
+}
+
+#warning {
+  -webkit-text-fill-color: #f3f1f1;
+  text-align: center
+}
+
+
+#main-table {
+  -webkit-text-fill-color: #edecf1;
+  background-color:  #a796963a;
+}
+
+::-webkit-input-placeholder {
+  color: #edb4a6;
+}
+
+.form-control {         /* POSSIBLY GOING TO KEEP THIS COMMENTED OUT SO TEXTBOXES COULD BE SEEN EASIER.  */
+  position: relative;   /* UNCOMMENT THESE ALL BELOW AS WELL FOR A SEE THROUGH BOX BUT CAN'T FIX COLOR OF PLACEHOLDER.  */
+}   
+
+.form-control {
+  display: block;
+  width: 100%;
+  height: 50px;
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0 40px; 
+  transition: background 200ms;
+  color: #fff;
+  color: #edb4a6;
+
+  color: #9e9770c2;
+  font-weight: lighter;
+  letter-spacing: 0.09em;
+}

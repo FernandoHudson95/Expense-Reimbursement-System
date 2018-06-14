@@ -41,7 +41,6 @@ a:hover {
 .form {
   width: 280px;
 }
-
 .form__submit {
   display: block;
   border: none;
@@ -120,4 +119,11 @@ input:focus {
 .info a:hover {
   border-color: #fff;
   text-decoration: none;
+}
+
+
+
+#main-table {
+  -webkit-text-fill-color: #f1edec;
+  background-color:  #a796963a;
 }

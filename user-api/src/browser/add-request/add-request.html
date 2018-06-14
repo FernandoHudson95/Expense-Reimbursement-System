@@ -8,7 +8,7 @@
   <meta name="author" content="">
   <link rel="icon" href="../../../../favicon.ico">
 
-  <title>Navbar Template for Bootstrap</title>
+  <title>New Reimbursement Request</title>
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
     crossorigin="anonymous">
@@ -22,6 +22,8 @@
 
   <!-- Custom styles for this template -->
   <link href="navbar.css" rel="stylesheet">
+  <link href="add-request.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -47,10 +49,10 @@
     </div>
   </nav>
 
-  <form class="container" id="container" onsubmit="event.preventDefault(); submitRequest();">
+  <form class="container" id="container"  onsubmit="submitRequest()">
     <br>
     <br>
-    <table class="table table-bordered table-dark">
+    <table class="table table-striped" id="main-table">
       <thead>
         <tr>
           <th scope="col" width="25%">Type</th>
@@ -87,13 +89,13 @@
     <br>
     <div id="lblValues"></div>
     <p id="warning"></p>
-    <button class="btn btn-danger" onclick="newRequest()" display="form-inline">New Item</button>
-    <button class="btn btn-danger" onclick="deleteRequest()">Delete Item</button>
-    <button class="btn btn-danger" onclick="grabElements()">Practice</button>
-
-    <br>
-    <br>
-    <button class="btn btn-primary">Submit Request</button>
+    <div id="buttonHolder1">
+      <button class="form-submit" onclick="newRequest()" display="form-inline">New Item</button>
+      <button class="form-submit" onclick="deleteRequest()">Delete Item</button>
+    </div>
+    <div id="buttonHolder2">
+      <button class="form-submit"> Submit Request</button>
+    </div>
   </form>
 
   <script src="add-request.js"></script>

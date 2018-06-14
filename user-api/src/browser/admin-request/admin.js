@@ -82,11 +82,9 @@ function addButtons(row) {
             const body = document.getElementById('admin-items-table');
             if (body.innerHTML !== '') {
                 body.innerHTML = '';
-                // requests.forEach(addItems);
                 addItems(requests.items)
             }
             else {
-                // requests.forEach(addItems);
                 addItems(requests.items)
 
             }
@@ -98,8 +96,8 @@ function addButtons(row) {
     sessionStorage.setItem('rUsername', row.getElementsByTagName("td")[1].innerText)
     sessionStorage.setItem('rTime', row.getElementsByTagName("td")[0].innerText)
     // console.log(row.getElementsByTagName("td")[1].innerText)
-    document.getElementById("buttonAppear1").innerHTML = '<button class="btn btn-primary" style="background-color:green" onclick="changeToApprove()">Approve</button>';
-    document.getElementById("buttonAppear2").innerHTML = '<button class="btn btn-danger" onclick="changeToDeny()">Deny</button>';
+    document.getElementById("buttonAppear1").innerHTML = '<button class="btn" style="-webkit-text-fill-color: white; background-color:green" onclick="changeToApprove()">Approve</button>';
+    document.getElementById("buttonAppear2").innerHTML = '<button class="btn" style="-webkit-text-fill-color: white; background-color: #d30202" onclick="changeToDeny()">Deny</button>';
     document.getElementById("admin-instructions").innerHTML = row.getElementsByTagName("td")[1].innerText + "'s ticket from " + row.getElementsByTagName("td")[0].innerText;
 
 }
@@ -206,7 +204,7 @@ function changeToDeny() {
 
 
 function addOtherRequests(requests) {
-    document.getElementById("buttonAppear1").innerHTML = '';
+    
 
     const body = document.getElementById('request-table-body');
 
@@ -228,12 +226,45 @@ function addOtherRequests(requests) {
     body.appendChild(row);
 }
 
+function showItems(row) {
+    let username = row.getElementsByTagName("td")[1].innerText
+    let timeSubmitted = row.getElementsByTagName("td")[0].innerText
+    document.getElementById("buttonAppear1").innerHTML = '';
+    document.getElementById("buttonAppear2").innerHTML = '';
+
+    sessionStorage.setItem('rUsername', row.getElementsByTagName("td")[1].innerText)
+    sessionStorage.setItem('rTime', row.getElementsByTagName("td")[0].innerText)
+    document.getElementById("admin-instructions").innerHTML = row.getElementsByTagName("td")[1].innerText + "'s ticket from " + row.getElementsByTagName("td")[0].innerText;
+
+    fetch('http://localhost:3000/reimbursements/username/' + username + '/timeSubmitted/' + timeSubmitted)
+        .then(resp => resp.json())
+        .then((requests) => {
+
+            //CLEARS TABLE
+            const body = document.getElementById('admin-items-table');
+            if (body.innerHTML !== '') {
+                body.innerHTML = '';
+                addItems(requests.items)
+            }
+            else {
+                addItems(requests.items)
+
+            }
+        })
+        .catch(err => {
+            console.log(err);
+        });
+
+    sessionStorage.setItem('rUsername', row.getElementsByTagName("td")[1].innerText)
+    sessionStorage.setItem('rTime', row.getElementsByTagName("td")[0].innerText)
+}
+
 function approved() {
     document.getElementById("page-title").innerHTML = 'Approved Reimbursement Requests';
     document.getElementById("buttonAppear1").innerHTML = '';
     document.getElementById("buttonAppear2").innerHTML = '';
     document.getElementById('admin-items-table').innerHTML = '';
-    document.getElementById("admin-instructions").innerHTML = 'Select a reimbursement request';
+    document.getElementById("admin-instructions").innerHTML = 'Select an approved request to see more information';
 
 
     let status = "Approved"
@@ -257,7 +288,7 @@ function denied() {
     document.getElementById("buttonAppear1").innerHTML = '';
     document.getElementById("buttonAppear2").innerHTML = '';
     document.getElementById('admin-items-table').innerHTML = '';
-    document.getElementById("admin-instructions").innerHTML = 'Select a reimbursement request';
+    document.getElementById("admin-instructions").innerHTML = 'Select an approved request to see more information';
 
     let status = "Denied"
     fetch('http://localhost:3000/reimbursements/status/' + status)
@@ -275,45 +306,7 @@ function denied() {
         });
 }
 
-function showItems(row) {
-    let username = row.getElementsByTagName("td")[1].innerText
-    let timeSubmitted = row.getElementsByTagName("td")[0].innerText
 
-    sessionStorage.setItem('rUsername', row.getElementsByTagName("td")[1].innerText)
-    sessionStorage.setItem('rTime', row.getElementsByTagName("td")[0].innerText)
-    document.getElementById("buttonAppear1").innerHTML = '<button class="btn btn-primary" style="background-color:green" onclick="changeToApprove()">Approve</button>';
-    document.getElementById("buttonAppear2").innerHTML = '<button class="btn btn-danger" onclick="changeToDeny()">Deny</button>';
-    document.getElementById("admin-instructions").innerHTML = row.getElementsByTagName("td")[1].innerText + "'s ticket from " + row.getElementsByTagName("td")[0].innerText;
-
-    // console.log(username)
-
-
-    fetch('http://localhost:3000/reimbursements/username/' + username + '/timeSubmitted/' + timeSubmitted)
-        .then(resp => resp.json())
-        .then((requests) => {
-
-            // console.log(requests[row.rowIndex].items)
-            // console.log(row.rowIndex)
-            //CLEARS TABLE
-            const body = document.getElementById('admin-items-table');
-            if (body.innerHTML !== '') {
-                body.innerHTML = '';
-                // requests.forEach(addItems);
-                addItems(requests.items)
-            }
-            else {
-                // requests.forEach(addItems);
-                addItems(requests.items)
-
-            }
-        })
-        .catch(err => {
-            console.log(err);
-        });
-
-    sessionStorage.setItem('rUsername', row.getElementsByTagName("td")[1].innerText)
-    sessionStorage.setItem('rTime', row.getElementsByTagName("td")[0].innerText)
-}
 function addItems(requests) {
     // count++;
     const body = document.getElementById('admin-items-table');
@@ -332,7 +325,6 @@ function addItems(requests) {
     row.appendChild(data);
     body.appendChild(row);
 
-    // console.log(requests.length)
     for (let i = 0; i < requests.length; i += 4) {
         let row = document.createElement('tr'); //CREATES <tr>
         let data = document.createElement('td'); //CREATES <td>
@@ -351,57 +343,6 @@ function addItems(requests) {
     }
 
 }
-
-// function displayRequests() {
-//     console.log(sessionStorage.getItem('username'))
-//     let firstname = sessionStorage.getItem('firstname')
-//     // alert("Welcome to your requests " + username)
-//     // document.getElementById("user").innerHTML = firstname + "'s reimbursements";
-//     let username = sessionStorage.getItem('username')
-
-
-// fetch('http://localhost:3000/reimbursements/username/' + username)
-//   .then(resp => resp.json())
-//     .then((requests) => {
-
-//         console.log(requests)
-//         //CLEARS TABLE
-//         const body = document.getElementById('request-table-body');
-//         body.innerHTML = '';
-
-//            requests.forEach(addRequests);
-//         })
-//         .catch(err => {
-//             console.log(err);
-//     });
-// }
-
-// function addRequests(requests) {
-
-//     const body = document.getElementById('request-table-body');
-
-//     const row = document.createElement('tr'); //CREATES <tr>
-//     let data = document.createElement('td'); //CREATES <td>
-//     data.innerText = requests.timeSubmitted; //ASSIGNS VALUE TO THE TD
-//     row.appendChild(data); //APPENDS THE td TO THE row
-//     data = document.createElement('td');
-//     data.innerText = requests.type;
-//     row.appendChild(data);
-//     data = document.createElement('td');
-//     data.innerText = requests.amount;
-//     row.appendChild(data);
-//     data = document.createElement('td');
-//     data.innerText = requests.items;
-//     row.appendChild(data);
-//     data = document.createElement('td');
-//     data.innerText = requests.status;
-//     row.appendChild(data);
-//     data = document.createElement('td');
-//     data.innerText = requests.approver;
-//     row.appendChild(data);
-//     body.appendChild(row);
-
-// }
 
 function logOut() {
     fetch('http://localhost:3000/users/logout/')

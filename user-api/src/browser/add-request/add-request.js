@@ -6,6 +6,7 @@ function submitRequest() {
   // console.log(sessionStorage.getItem('username'))
   // let username = sessionStorage.getItem('username')
 
+ event.preventDefault();
  
       let elem = document.getElementById('container').elements;
             for(var i = 0; i < elem.length-4; i++) {
@@ -86,25 +87,8 @@ function grabElements() {
 
 function newRequest() {
 
-  //IF USER CLICKS ADD ITEM AND FIELDS ARE EMPTY, EMPTY STRING WILL BE PUSHED TO THE ARRAY CAUSING AN ERROR
-  //NEED TO FIX THIS WITH A SWITCH OF IF TO ONLY ADD IF STRINGS ARE NOT EMPTY
+  document.getElementById("warning").innerHTML = "";
 
-  // let item = {
-  //   title: document.getElementById('types-dropdown')[document.getElementById('types-dropdown').selectedIndex].textContent,
-  //   amount: document.getElementById('request-amount').value,
-  //   item: document.getElementById('reimbursement-description').value
-  // }
-  // items.push(item);
-
-
-  // console.log(items);
-  // console.log(items[0].amount)
-  // console.log(items[0].item)
-  // if (items[0].amount === '' && items[0].item === '') {
-  //   document.getElementById("warning").style.color = "red";
-  //   document.getElementById("warning").innerHTML = "Can not have empty fields";
-  // }
-  // else{
   let table = document.getElementById('request');
   let rowCount = table.rows.length;
   count++;
@@ -120,6 +104,7 @@ function newRequest() {
 }
 
 function deleteRequest() {
+  event.preventDefault();
   if ((document.getElementById('request')).rows.length >= 2) {
     count--;
     console.log(count);
@@ -133,4 +118,16 @@ function deleteRequest() {
     document.getElementById("warning").style.color = "red";
     document.getElementById("warning").innerHTML = "One request must be submitted";
   }
+}
+
+function logOut() {
+  fetch('http://localhost:3000/users/logout/')
+  .then((data) => {
+      alert('Now logging out!')
+      sessionStorage.clear();
+      window.location= '../sign-in/sign-in.html';
+    })
+      .catch(err => {
+          console.log(err);
+  });
 }
