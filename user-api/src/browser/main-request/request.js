@@ -28,6 +28,7 @@ let count = 0;
 function addRequests(requests) {
 count++;
 console.log(count)
+document.getElementById("instructions").innerHTML = 'Select a ticket to view items';
     const body = document.getElementById('request-table-body');
 
     let row = document.createElement('tr'); //CREATES <tr>

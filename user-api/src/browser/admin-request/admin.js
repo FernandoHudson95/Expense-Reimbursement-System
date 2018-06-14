@@ -23,7 +23,7 @@ function pending() {
             console.log(stuff.length);
 
             if (stuff.length === 0) {
-                document.getElementById("admin-instructions").innerHTML = 'No Pending Reimbursements';
+                document.getElementById("admin-instructions").innerHTML = 'No Pending Requests';
                 document.getElementById("buttonAppear1").innerHTML = '';
                 document.getElementById("buttonAppear2").innerHTML = '';
             }
@@ -42,7 +42,7 @@ function addPendingRequests(requests) {
 
     // console.log(requests)
 
-    document.getElementById("admin-instructions").innerHTML = 'Select a request to approve or deny.';
+    document.getElementById("admin-instructions").innerHTML = 'Select a ticket to approve or deny.';
 
     const body = document.getElementById('request-table-body');
 
@@ -264,7 +264,7 @@ function approved() {
     document.getElementById("buttonAppear1").innerHTML = '';
     document.getElementById("buttonAppear2").innerHTML = '';
     document.getElementById('admin-items-table').innerHTML = '';
-    document.getElementById("admin-instructions").innerHTML = 'Select an approved request to see more information';
+    document.getElementById("admin-instructions").innerHTML = 'Select a ticket to see more information';
 
 
     let status = "Approved"
@@ -288,7 +288,7 @@ function denied() {
     document.getElementById("buttonAppear1").innerHTML = '';
     document.getElementById("buttonAppear2").innerHTML = '';
     document.getElementById('admin-items-table').innerHTML = '';
-    document.getElementById("admin-instructions").innerHTML = 'Select an approved request to see more information';
+    document.getElementById("admin-instructions").innerHTML = 'Select a ticket to see more information';
 
     let status = "Denied"
     fetch('http://localhost:3000/reimbursements/status/' + status)
