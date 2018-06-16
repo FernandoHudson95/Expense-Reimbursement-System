@@ -1,7 +1,9 @@
 function displayRequests() {
-    // console.log(sessionStorage.getItem('username'))
+    if (sessionStorage.getItem('username') === null){
+        window.location = '../sign-in/sign-in.html'
+     }
+     else{
     let firstname = sessionStorage.getItem('firstname')
-    // alert("Welcome to your requests " + username)
     document.getElementById("user").innerHTML = firstname + "'s reimbursements";
     let username = sessionStorage.getItem('username')
 
@@ -21,6 +23,7 @@ fetch('http://localhost:3000/reimbursements/username/' + username)
         .catch(err => {
             console.log(err);
     });
+}
 }
 
 let count = 0;
@@ -149,7 +152,6 @@ function addItems(requests) {
 function logOut() {
     fetch('http://localhost:3000/users/logout/')
     .then((data) => {
-        alert('Now logging out!')
         sessionStorage.clear();
         window.location= '../sign-in/sign-in.html';
       })

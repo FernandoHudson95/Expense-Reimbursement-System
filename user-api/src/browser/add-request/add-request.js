@@ -2,9 +2,12 @@ let items = [];
 let items1 = [];
 let count = 0;
 
+function check() {
+  if (sessionStorage.getItem('username') === null){
+    window.location = '../sign-in/sign-in.html'
+ }
+}
 function submitRequest() {
-  // console.log(sessionStorage.getItem('username'))
-  // let username = sessionStorage.getItem('username')
 
  event.preventDefault();
  

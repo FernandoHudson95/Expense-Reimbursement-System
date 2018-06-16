@@ -1,9 +1,8 @@
 function pending() {
-    // console.log(sessionStorage.getItem('username'))
-    // let firstname = sessionStorage.getItem('firstname')
-    // alert("Welcome to your requests " + username)
-    // document.getElementById("user").innerHTML = firstname + "'s reimbursements";
-    // let username = sessionStorage.getItem('username')
+    if (sessionStorage.getItem('username') === null){
+       window.location = '../sign-in/sign-in.html'
+    }
+    else{
     document.getElementById("buttonAppear1").innerHTML = '';
     document.getElementById("buttonAppear2").innerHTML = '';
     document.getElementById("page-title").innerHTML = 'Pending Reimbursements';
@@ -36,6 +35,7 @@ function pending() {
         .catch(err => {
             console.log(err);
         });
+    }
 }
 
 function addPendingRequests(requests) {
@@ -347,9 +347,11 @@ function addItems(requests) {
 function logOut() {
     fetch('http://localhost:3000/users/logout/')
         .then((data) => {
-            alert('Now logging out!')
             sessionStorage.clear();
+            document.getElementById('request-table-body').innerHTML = '';
+            document.getElementById('admin-items-table').innerHTML = '';
             window.location = '../sign-in/sign-in.html';
+
         })
         .catch(err => {
             console.log(err);
